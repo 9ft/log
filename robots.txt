@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://mindy.tk/sitemap.xml

@@ -1,0 +1,137 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Ubuntu 下安装 LNMP - log</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Mindy Cong"><meta name=description content="安装 LAMP 咦？我们要安装 LNMP, 为什么要安装 LAMP 呢, 因为 Ubuntu 安装 LAMP 超级方便. 要其中的 MP (MySQL, PHP). 1 sudo apt-get install lamp-server^ php5-fpm 和 php5-mcrypt 必须安装. 没安装上的话要手动安装. 其中: php5-fpm 是 FastCGI Process"><meta name=keywords content=Tech,Code,Life><meta name=generator content="Hugo 0.58.3 with theme even"><link rel=canonical href=http://mindy.tk/post/ubuntu-lnmp/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property=og:title content="Ubuntu 下安装 LNMP"><meta property=og:description content="安装 LAMP 咦？我们要安装 LNMP, 为什么要安装 LAMP 呢, 因为 Ubuntu 安装 LAMP 超级方便. 要其中的 MP (MySQL, PHP). 1 sudo apt-get install lamp-server^ php5-fpm 和 php5-mcrypt 必须安装. 没安装上的话要手动安装. 其中: php5-fpm 是 FastCGI Process"><meta property=og:type content=article><meta property=og:url content=http://mindy.tk/post/ubuntu-lnmp/><meta property=article:published_time content=2016-05-05T08:00:00+08:00><meta property=article:modified_time content=2019-03-25T23:52:57+08:00><meta itemprop=name content="Ubuntu 下安装 LNMP"><meta itemprop=description content="安装 LAMP 咦？我们要安装 LNMP, 为什么要安装 LAMP 呢, 因为 Ubuntu 安装 LAMP 超级方便. 要其中的 MP (MySQL, PHP). 1 sudo apt-get install lamp-server^ php5-fpm 和 php5-mcrypt 必须安装. 没安装上的话要手动安装. 其中: php5-fpm 是 FastCGI Process"><meta itemprop=datePublished content=2016-05-05T08:00:00&#43;08:00><meta itemprop=dateModified content=2019-03-25T23:52:57&#43;08:00><meta itemprop=wordCount content=403><meta itemprop=keywords content><meta name=twitter:card content=summary><meta name=twitter:title content="Ubuntu 下安装 LNMP"><meta name=twitter:description content="安装 LAMP 咦？我们要安装 LNMP, 为什么要安装 LAMP 呢, 因为 Ubuntu 安装 LAMP 超级方便. 要其中的 MP (MySQL, PHP). 1 sudo apt-get install lamp-server^ php5-fpm 和 php5-mcrypt 必须安装. 没安装上的话要手动安装. 其中: php5-fpm 是 FastCGI Process"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Ubuntu 下安装 LNMP</h1><div class=post-meta><span class=post-time>2016-05-05</span>
+<span class=more-meta>403 words</span>
+<span class=more-meta>1 min read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#安装-lamp>安装 <code>LAMP</code></a></li><li><a href=#安装配置-nginx>安装配置 <code>Nginx</code></a><ul><li><a href=#安装>安装</a></li><li><a href=#配置>配置</a><ul><li><a href=#部署-html>部署 <code>HTML</code></a></li><li><a href=#部署-php>部署 <code>PHP</code></a></li></ul></li></ul></li><li><a href=#安装配置-phpmyadmin>安装配置 <code>phpMyAdmin</code></a><ul><li><a href=#安装-1>安装</a></li><li><a href=#配置-1>配置</a></li><li><a href=#问题-缺少-mcrypt-扩展-请检查-php-配置>问题: 缺少 <code>mcrypt</code> 扩展, 请检查 <code>PHP</code> 配置</a></li></ul></li><li><a href=#enjoy>Enjoy!</a></li></ul></nav></div></div><div class=post-content><h1 id=安装-lamp>安装 <code>LAMP</code></h1><p>咦？我们要安装 <code>LNMP</code>, 为什么要安装 <code>LAMP</code> 呢, 因为 <code>Ubuntu</code> 安装 <code>LAMP</code> 超级方便. 要其中的 <code>MP (MySQL, PHP)</code>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt-get install lamp-server^</code></pre></td></tr></table></div></div><p><code>php5-fpm</code> 和 <code>php5-mcrypt</code> 必须安装. 没安装上的话要手动安装. 其中:</p><ul><li><code>php5-fpm</code> 是 <code>FastCGI Process Manager</code>, 是 <code>Nginx</code> 配合 <code>PHP</code> 所必须使用的.</li><li><code>php5-mcrypt</code> 是 <code>phpMyAdmin</code> 需要使用到的.</li></ul><h1 id=安装配置-nginx>安装配置 <code>Nginx</code></h1><h2 id=安装>安装</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt-get install nginx</code></pre></td></tr></table></div></div><h2 id=配置>配置</h2><h3 id=部署-html>部署 <code>HTML</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf>server {
+  listen 80;
+  listen [::]:80;
+  root /usr/share/nginx/example.com;
+  index index.html index.htm;
+  server_name example.com;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+}</code></pre></td></tr></table></div></div><h3 id=部署-php>部署 <code>PHP</code></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf>server {
+  listen 80;
+  listen [::]:80;
+  server_name example.com;
+  root /usr/share/nginx/example.com;
+  index index.html index.htm index.php;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  location ~ \.php$ {
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+  }
+
+  location ~ /\.ht {
+    deny all;
+  }
+}</code></pre></td></tr></table></div></div><p><code>PHP</code> 可以通过写个探针测试配置是否正确</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-php data-lang=php><span class=cp>&lt;?php</span> <span class=nx>phpinfo</span><span class=p>();</span> <span class=cp>?&gt;</span>
+</code></pre></td></tr></table></div></div><h1 id=安装配置-phpmyadmin>安装配置 <code>phpMyAdmin</code></h1><h2 id=安装-1>安装</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt-get install phpmyadmin</code></pre></td></tr></table></div></div><h2 id=配置-1>配置</h2><p>仿照上一节 <code>部署 PHP</code> 中为 <code>phpmyadmin</code> 设置访问入口.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf>server {
+  listen 80;
+  listen [::]:80;
+  server_name phpmyadmin.example.com;
+  root /usr/share/phpmyadmin;
+  index index.php;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  location ~ \.php$ {
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+  }
+  location ~ /\.ht {
+    deny all;
+  }
+}</code></pre></td></tr></table></div></div><h2 id=问题-缺少-mcrypt-扩展-请检查-php-配置>问题: 缺少 <code>mcrypt</code> 扩展, 请检查 <code>PHP</code> 配置</h2><p>如果出现 <code>缺少 mcrypt 扩展. 请检查 PHP 配置.</code> 的提示.</p><p>执行</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt-get install php5-mcrypt</code></pre></td></tr></table></div></div><p>配置 <code>php.ini</code>, 加上 <code>extension=php_mcrypt.so</code>, 修改结果:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf>;;;;;;;;;;;;;;;;;;;;;;
+; Dynamic Extensions ;
+;;;;;;;;;;;;;;;;;;;;;;
+;
+; If you wish to have an extension loaded automatically, use the following
+
+extension=php_mcrypt.so</code></pre></td></tr></table></div></div><h1 id=enjoy>Enjoy!</h1></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Mindy Cong</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2019-03-25
+<a href=https://github.com/9ft/log/commit/c1be0713d341c437b4f319e1a15520359951d335 title="migrate post">(c1be071)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=prev href=/post/hexo/><i class="iconfont icon-left"></i><span class="prev-text nav-default">hexo</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/jekyll-nginx/><span class="next-text nav-default">VPS 上利用 Jekyll Nginx 搭建博客</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='mindytech';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=http://mindy.tk/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2017 -
+2019
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Mindy Cong</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-46567212-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

@@ -1,0 +1,183 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>VPS 上利用 Jekyll Nginx 搭建博客 - log</title><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content=no-transform><meta http-equiv=cache-control content=no-siteapp><meta name=theme-color content=#f8f5ec><meta name=msapplication-navbutton-color content=#f8f5ec><meta name=apple-mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-status-bar-style content=#f8f5ec><meta name=author content="Mindy Cong"><meta name=description content="以前买的虚拟空间虽然很稳定, 但自己能控制的东西不多. 折腾VPS, 把个人博客迁移过去. 换个胃口, 先不折腾 LEMP 了, 装个 Jekyll 好啦. 安装 Ruby Mac 下也推荐使用"><meta name=keywords content=Tech,Code,Life><meta name=generator content="Hugo 0.58.3 with theme even"><link rel=canonical href=http://mindy.tk/post/jekyll-nginx/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property=og:title content="VPS 上利用 Jekyll Nginx 搭建博客"><meta property=og:description content="以前买的虚拟空间虽然很稳定, 但自己能控制的东西不多. 折腾VPS, 把个人博客迁移过去. 换个胃口, 先不折腾 LEMP 了, 装个 Jekyll 好啦. 安装 Ruby Mac 下也推荐使用"><meta property=og:type content=article><meta property=og:url content=http://mindy.tk/post/jekyll-nginx/><meta property=article:published_time content=2016-05-04T08:00:00+08:00><meta property=article:modified_time content=2019-03-25T23:52:57+08:00><meta itemprop=name content="VPS 上利用 Jekyll Nginx 搭建博客"><meta itemprop=description content="以前买的虚拟空间虽然很稳定, 但自己能控制的东西不多. 折腾VPS, 把个人博客迁移过去. 换个胃口, 先不折腾 LEMP 了, 装个 Jekyll 好啦. 安装 Ruby Mac 下也推荐使用"><meta itemprop=datePublished content=2016-05-04T08:00:00&#43;08:00><meta itemprop=dateModified content=2019-03-25T23:52:57&#43;08:00><meta itemprop=wordCount content=739><meta itemprop=keywords content><meta name=twitter:card content=summary><meta name=twitter:title content="VPS 上利用 Jekyll Nginx 搭建博客"><meta name=twitter:description content="以前买的虚拟空间虽然很稳定, 但自己能控制的东西不多. 折腾VPS, 把个人博客迁移过去. 换个胃口, 先不折腾 LEMP 了, 装个 Jekyll 好啦. 安装 Ruby Mac 下也推荐使用"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>VPS 上利用 Jekyll Nginx 搭建博客</h1><div class=post-meta><span class=post-time>2016-05-04</span>
+<span class=more-meta>739 words</span>
+<span class=more-meta>2 mins read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#安装-ruby>安装 <code>Ruby</code></a></li><li><a href=#安装-jekyll>安装 <code>Jekyll</code></a></li><li><a href=#启动服务器>启动服务器</a></li><li><a href=#部署-jekyll-生成的网站>部署 <code>Jekyll</code> 生成的网站</a></li><li><a href=#配置-nginx>配置 <code>Nginx</code></a></li><li><a href=#架设-http-协议的-git-服务器>架设 <code>HTTP</code> 协议的 <code>Git</code> 服务器</a><ul><li><a href=#安装>安装</a></li><li><a href=#配置>配置</a><ul><li><a href=#配置-nginx-可运行-fastcgi>配置 <code>Nginx</code> 可运行 <code>fastcgi</code></a></li><li><a href=#配置-gitweb-conf>配置 <code>gitweb.conf</code></a></li><li><a href=#使用-htpasswd-创建用户>使用 <code>htpasswd</code> 创建用户</a></li></ul></li></ul></li><li><a href=#建立与本地仓库的连接>建立与本地仓库的连接</a><ul><li><a href=#服务器上建立裸仓库>服务器上建立裸仓库</a></li><li><a href=#设置-hook>设置<code>Hook</code></a></li></ul></li><li><a href=#enjoy>Enjoy</a></li></ul></nav></div></div><div class=post-content><p>以前买的虚拟空间虽然很稳定, 但自己能控制的东西不多. 折腾VPS, 把个人博客迁移过去. 换个胃口, 先不折腾 <code>LEMP</code> 了, 装个 <code>Jekyll</code> 好啦.</p><h1 id=安装-ruby>安装 <code>Ruby</code></h1><p>Mac 下也推荐使用 RVM, 虽然 macOS 自带了 Ruby, 但这个 Ruby 是为系统所使用的, 安装 gem 需要使用 sudo. 否则没有对目录 /Library/Ruby/Gems/ 的写权限.</p><p>使用 <code>RVM</code> 安装, 参照 <a href=https://rvm.io/rvm/install>Installing RVM</a></p><blockquote><p>Before any other step install mpapis public key (might need gpg2) (see security)</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</code></pre></td></tr></table></div></div><blockquote><p>Install RVM (development version):</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=se>\c</span>url -sSL https://get.rvm.io <span class=p>|</span> bash</code></pre></td></tr></table></div></div><blockquote><p>Display a list of all known rubies.</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>rvm list known</code></pre></td></tr></table></div></div><blockquote><p>Install a version of Ruby (eg 2.2)</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>rvm install <span class=m>2</span>.2</code></pre></td></tr></table></div></div><blockquote><p>Check this worked correctly</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ruby -v</code></pre></td></tr></table></div></div><h1 id=安装-jekyll>安装 <code>Jekyll</code></h1><p>参照 <a href=https://jekyllrb.com/>Jekyll Quick-start Instructions</a>.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>gem install jekyll
+jekyll new my-awesome-site
+<span class=nb>cd</span> my-awesome-site</code></pre></td></tr></table></div></div><h1 id=启动服务器>启动服务器</h1><p>使用浏览器在本地进行预览.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>jekyll serve</code></pre></td></tr></table></div></div><h1 id=部署-jekyll-生成的网站>部署 <code>Jekyll</code> 生成的网站</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>jekyll build --source ~/my-awesome-site --destination /var/www/awesomeblog</code></pre></td></tr></table></div></div><h1 id=配置-nginx>配置 <code>Nginx</code></h1><p>复制默认配置文件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example.com</code></pre></td></tr></table></div></div><p>参照 <a href=https://www.digitalocean.com/community/tutorials/how-to-get-started-with-jekyll-on-an-ubuntu-vps>How To Get Started with Jekyll on an Ubuntu VPS</a> 在 <code>example.com</code> 中写一个最简单的配置文件:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf>server {
+  listen 80;
+  # the domain of your VPS
+  server_name example.com;
+  root /home/deployer/blog/current;
+  index index.html
+  expires 1d;
+}</code></pre></td></tr></table></div></div><p>Using symlinks means it&rsquo;s easy to take a site offline by removing the symlink without touching the original configuration file.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/example.com</code></pre></td></tr></table></div></div><p>Tests the nginx configuration.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo nginx -t</code></pre></td></tr></table></div></div><p>Restart nginx.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo service nginx restart</code></pre></td></tr></table></div></div><h1 id=架设-http-协议的-git-服务器>架设 <code>HTTP</code> 协议的 <code>Git</code> 服务器</h1><h2 id=安装>安装</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt-get install git gitweb fcgiwrap</code></pre></td></tr></table></div></div><h2 id=配置>配置</h2><h3 id=配置-nginx-可运行-fastcgi>配置 <code>Nginx</code> 可运行 <code>fastcgi</code></h3><p>参照 <a href=http://beginor.github.io/2016/03/12/http-git-server-on-nginx.html>在 Ubuntu 系统上配置 Nginx Git 服务器</a> 和 <a href=http://weininger.net/configuration-of-nginx-for-gitweb-and-git-http-backend.html>NGINX Configuration for Gitweb and git-http-backend</a> 中的配置.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf># HTTP server
+server {
+  listen 80;
+  listen [::]:80;
+  server_name git.mindy.tk;
+  root /usr/share/gitweb;
+  access_log /var/log/nginx/git.mindy.tk.access.log;
+  error_log /var/log/nginx/git.mindy.tk.error.log;
+
+  #ssl                  on;
+  #ssl_certificate      /etc/ssl/certs/certforyoursite.crt;
+  #ssl_certificate_key  /etc/ssl/private/sitekey.pem;
+  #ssl_session_timeout 5m;
+  #ssl_protocols        TLSv1 TLSv1.1 TLSv1.2;
+  #ssl_ciphers          HIGH:!ADH:!MD5;
+  #ssl_prefer_server_ciphers on;
+
+  # static repo files for cloning over https
+  location ~ ^.*\.git/objects/([0-9a-f]+/[0-9a-f]+|pack/pack-[0-9a-f]+.(pack|idx))$ {
+    auth_basic &#34;Restricted&#34;;
+    auth_basic_user_file /etc/nginx/passwd;
+
+    root /var/www/git.mindy.tk;
+  }
+
+  # requests that need to go to git-http-backend
+  location ~ ^.*\.git/(HEAD|info/refs|objects/info/.*|git-(upload|receive)-pack)$ {
+    auth_basic &#34;Restricted&#34;;
+    auth_basic_user_file /etc/nginx/passwd;
+
+    root /var/www/git.mindy.tk;
+
+    fastcgi_pass unix:/var/run/fcgiwrap.socket;
+    fastcgi_param SCRIPT_FILENAME   /usr/lib/git-core/git-http-backend;
+    fastcgi_param PATH_INFO         $uri;
+    fastcgi_param GIT_PROJECT_ROOT  /var/www/git.mindy.tk;
+    fastcgi_param GIT_HTTP_EXPORT_ALL &#34;&#34;;
+    fastcgi_param REMOTE_USER $remote_user;
+    include fastcgi_params;
+  }
+
+  # send anything else to gitweb if it&#39;s not a real file
+  try_files $uri @gitweb;
+  location @gitweb {
+    root /usr/share/gitweb;
+    auth_basic &#34;Restricted&#34;;
+    auth_basic_user_file /etc/nginx/passwd;
+
+    fastcgi_pass unix:/var/run/fcgiwrap.socket;
+    fastcgi_param SCRIPT_FILENAME   /usr/share/gitweb/gitweb.cgi;
+    fastcgi_param PATH_INFO         $uri;
+    fastcgi_param GITWEB_CONFIG     /etc/gitweb.conf;
+    include fastcgi_params;
+ }
+}</code></pre></td></tr></table></div></div><h3 id=配置-gitweb-conf>配置 <code>gitweb.conf</code></h3><p>修改 <code>/etc/gitweb.conf</code> 为:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf>$projectroot = &#34;/usr/share/nginx/git.mindy.tk&#34;</code></pre></td></tr></table></div></div><h3 id=使用-htpasswd-创建用户>使用 <code>htpasswd</code> 创建用户</h3><p>使用 <code>htpasswd</code> 创建用户名及其密码.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>htpasswd /etc/nginx/passwd user1</code></pre></td></tr></table></div></div><h1 id=建立与本地仓库的连接>建立与本地仓库的连接</h1><h2 id=服务器上建立裸仓库>服务器上建立裸仓库</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>git init --bare test.git</code></pre></td></tr></table></div></div><p>注意检查一下 <code>test.git</code> 的权限, 如果权限不足的话, 使用命令设置一下权限:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>chmod a+rw -R test.git</code></pre></td></tr></table></div></div><h2 id=设置-hook>设置<code>Hook</code></h2><p>参照 <a href=https://www.digitalocean.com/community/tutorials/how-to-deploy-jekyll-blogs-with-git>How To Deploy Jekyll Blogs with Git</a> <a href=http://jekyllrb.com/docs/deployment-methods/>Deployment methods</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=nb>cd</span> hooks
+vi post-receive</code></pre></td></tr></table></div></div><p>加入:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-conf data-lang=conf><span class=cp>#!/bin/bash -l
+</span><span class=cp></span><span class=nv>GIT_REPO</span><span class=o>=</span><span class=nv>$HOME</span>/repos/awesomeblog.git
+<span class=nv>TMP_GIT_CLONE</span><span class=o>=</span><span class=nv>$HOME</span>/tmp/git/awesomeblog
+<span class=nv>PUBLIC_WWW</span><span class=o>=</span>/var/www/awesomeblog
+
+git clone <span class=nv>$GIT_REPO</span> <span class=nv>$TMP_GIT_CLONE</span>
+jekyll build --source <span class=nv>$TMP_GIT_CLONE</span> --destination <span class=nv>$PUBLIC_WWW</span>
+rm -Rf <span class=nv>$TMP_GIT_CLONE</span>
+exit</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>chmod +x post-receive</code></pre></td></tr></table></div></div><h1 id=enjoy>Enjoy</h1></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Mindy Cong</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2019-03-25
+<a href=https://github.com/9ft/log/commit/c1be0713d341c437b4f319e1a15520359951d335 title="migrate post">(c1be071)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=prev href=/post/ubuntu-lnmp/><i class="iconfont icon-left"></i><span class="prev-text nav-default">Ubuntu 下安装 LNMP</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/ubuntu-lamp/><span class="next-text nav-default">Ubuntu 的 LAMP Tomcat FTP 安装和配置</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='mindytech';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=http://mindy.tk/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2017 -
+2019
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Mindy Cong</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-46567212-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
