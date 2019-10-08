@@ -12,6 +12,9 @@ jobs:
     - uses: actions/checkout@master
       with:
         submodules: true
+        
+    - name: lfs uninstall
+      run: git lfs uninstall
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@master
