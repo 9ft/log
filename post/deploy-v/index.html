@@ -1,0 +1,208 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>v_p_n 架设 - log</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Mindy Cong"><meta name=description content="搭建V_P_N. 架构 使用 Openswan 作为 IPsec 服务器. 使用 xl2tpd 提供 L2TP 支持. 使用 ppp 提供用户认证. 环境 Linode Ubuntu 14.04 64-bit 安装 1 2 sudo apt-get install openswan xl2tpd ppp lsof # 安装软件包, 会有设置向导,"><meta name=keywords content="Tech,Code,Life"><meta name=generator content="Hugo 0.60.1 with theme even"><link rel=canonical href=http://mindy.tk/post/deploy-v/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property="og:title" content="v_p_n 架设"><meta property="og:description" content="搭建V_P_N. 架构 使用 Openswan 作为 IPsec 服务器. 使用 xl2tpd 提供 L2TP 支持. 使用 ppp 提供用户认证. 环境 Linode Ubuntu 14.04 64-bit 安装 1 2 sudo apt-get install openswan xl2tpd ppp lsof # 安装软件包, 会有设置向导,"><meta property="og:type" content="article"><meta property="og:url" content="http://mindy.tk/post/deploy-v/"><meta property="article:published_time" content="2015-10-12T08:00:00+08:00"><meta property="article:modified_time" content="2019-03-25T23:52:57+08:00"><meta itemprop=name content="v_p_n 架设"><meta itemprop=description content="搭建V_P_N. 架构 使用 Openswan 作为 IPsec 服务器. 使用 xl2tpd 提供 L2TP 支持. 使用 ppp 提供用户认证. 环境 Linode Ubuntu 14.04 64-bit 安装 1 2 sudo apt-get install openswan xl2tpd ppp lsof # 安装软件包, 会有设置向导,"><meta itemprop=datePublished content="2015-10-12T08:00:00+08:00"><meta itemprop=dateModified content="2019-03-25T23:52:57+08:00"><meta itemprop=wordCount content="1058"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="v_p_n 架设"><meta name=twitter:description content="搭建V_P_N. 架构 使用 Openswan 作为 IPsec 服务器. 使用 xl2tpd 提供 L2TP 支持. 使用 ppp 提供用户认证. 环境 Linode Ubuntu 14.04 64-bit 安装 1 2 sudo apt-get install openswan xl2tpd ppp lsof # 安装软件包, 会有设置向导,"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>v_p_n 架设</h1><div class=post-meta><span class=post-time>2015-10-12</span>
+<span class=more-meta>1058 words</span>
+<span class=more-meta>3 mins read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#-iptables--sysctl->防火墙 iptables 和 sysctl 的设置</a></li><li><a href=#heading4>添加自启</a></li><li><a href=#-openswan-ipsec>配置 Openswan (IPSEC)</a><ul><li><a href=#-ipsecconf>配置 ipsec.conf</a></li><li><a href=#-ipsecsecrets>修改 ipsec.secrets</a></li><li><a href=#ipsec--shared-secret>IPSec 握手时的 Shared Secret</a></li><li><a href=#-ipsec>验证 IPSec</a></li><li><a href=#heading5>遇到问题</a></li></ul></li><li><a href=#-xl2tpd>配置 xl2tpd</a><ul><li><a href=#-xl2tpdconf>配置 xl2tpd.conf</a></li><li><a href=#heading6>用户认证</a></li></ul></li></ul><ul><li><a href=#heading8>增加用户</a></li><li><a href=#heading9>重启服务</a></li><li><a href=#heading10>查看错误日志</a></li></ul></nav></div></div><div class=post-content><p>搭建V_P_N.</p><h1 id=heading>架构</h1><ul><li>使用 <code>Openswan</code> 作为 <code>IPsec</code> 服务器.</li><li>使用 <code>xl2tpd</code> 提供 <code>L2TP</code> 支持.</li><li>使用 <code>ppp</code> 提供用户认证.</li></ul><h1 id=heading1>环境</h1><ul><li>Linode</li><li>Ubuntu 14.04 64-bit</li></ul><h1 id=heading2>安装</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo apt-get install openswan xl2tpd ppp lsof
+<span class=c1># 安装软件包, 会有设置向导, 全部 Enter 使用默认设置.</span>
+</code></pre></td></tr></table></div></div><h1 id=heading3>配置</h1><h2 id=-iptables--sysctl->防火墙 <code>iptables</code> 和 <code>sysctl</code> 的设置</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>sudo iptables -t nat -A POSTROUTING -j SNAT --to-source %SERVERIP% -o eth+
+<span class=c1>#%SERVERIP% 替换成你的服务器 IP; eth+ 通配符</span>
+
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.ip_forward = 1&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.conf.all.accept_redirects = 0&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.conf.all.send_redirects = 0&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.conf.default.rp_filter = 0&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.conf.default.accept_source_route = 0&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.conf.default.send_redirects = 0&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+<span class=nb>echo</span> <span class=s2>&#34;net.ipv4.icmp_ignore_bogus_error_responses = 1&#34;</span> <span class=p>|</span>  tee -a /etc/sysctl.conf
+
+<span class=k>for</span> vpn in /proc/sys/net/ipv4/conf/*<span class=p>;</span> <span class=k>do</span> <span class=nb>echo</span> <span class=m>0</span> &gt; <span class=nv>$vpn</span>/accept_redirects<span class=p>;</span> <span class=nb>echo</span> <span class=m>0</span> &gt; <span class=nv>$vpn</span>/send_redirects<span class=p>;</span> <span class=k>done</span>
+
+sysctl -p
+<span class=c1># 应用设置</span>
+</code></pre></td></tr></table></div></div><h2 id=heading4>添加自启</h2><p>在 <code>rc.local</code> 中添加:</p><pre><code class=language-conf data-lang=conf>for vpn in /proc/sys/net/ipv4/conf/*; do echo 0 &gt; $vpn/accept_redirects; echo 0 &amp;gt; $vpn/send_redirects; done
+iptables -t nat -A POSTROUTING -j SNAT --to-source %SERVERIP% -o eth+
+</code></pre><h2 id=-openswan-ipsec>配置 <code>Openswan (IPSEC)</code></h2><h3 id=-ipsecconf>配置 <code>ipsec.conf</code></h3><p>在 <code>/etc/ipsec.conf</code> 中修改:</p><pre><code class=language-conf data-lang=conf>left=%SERVERIP%
+protostack=netkey
+</code></pre><p>附 <code>/etc/ipsec.conf</code> 完整文件:</p><pre><code class=language-conf data-lang=conf>version 2.0 # conforms to second version of ipsec.conf specification
+
+# basic configuration
+config setup
+    # Do not set debug options to debug configuration issues!
+    # plutodebug / klipsdebug = &quot;all&quot;, &quot;none&quot; or a combation from below:
+    # &quot;raw crypt parsing emitting control klips pfkey natt x509 dpd private&quot;
+    # eg:
+    # plutodebug=&quot;control parsing&quot;
+    # Again: only enable plutodebug or klipsdebug when asked by a developer
+    #
+    # enable to get logs per-peer
+    # plutoopts=&quot;--perpeerlog&quot;
+    #
+    # Enable core dumps (might require system changes, like ulimit -C)
+    # This is required for abrtd to work properly
+    # Note: incorrect SElinux policies might prevent pluto writing the core
+    dumpdir=/var/run/pluto/
+    #
+    # NAT-TRAVERSAL support, see README.NAT-Traversal
+    nat_traversal=yes
+    # exclude networks used on server side by adding %v4:!a.b.c.0/24
+    # It seems that T-Mobile in the US and Rogers/Fido in Canada are
+    # using 25/8 as &quot;private&quot; address space on their 3G network.
+    # This range has not been announced via BGP (at least upto 2010-12-21)
+    virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v6:fd00::/8,%v6:fe80::/10
+    # OE is now off by default. Uncomment and change to on, to enable.
+    oe=off
+    # which IPsec stack t                 o use. auto will try netkey, then klips then mast
+    protostack=netkey
+    # Use this to log to a file, or disable logging on embedded systems (like openwrt)
+    #plutostderrlog=/dev/null
+
+# Add connections here
+
+# sample VPN connection
+# for more examples, see /etc/ipsec.d/examples/
+#conn sample
+#       # Left security gateway, subnet behind it, nexthop toward right.
+#       left=10.0.0.1
+#       leftsubnet=172.16.0.0/24
+#       leftnexthop=10.22.33.44
+#       # Right security gateway, subnet behind it, nexthop toward left.
+#       right=10.12.12.1
+#       rightsubnet=192.168.0.0/24
+#       rightnexthop=10.101.102.103
+#       # To authorize this connection, but not actually start it,
+#       # at startup, uncomment this.
+#       #auto=add
+conn L2TP-PSK-noNAT
+    authby=secret
+    #shared secret. Use rsasig for certificates.
+
+    pfs=no
+    #Disable pfs
+
+    auto=add
+    #the ipsec tunnel should be started and routes created when the ipsec daemon itself starts.
+
+    keyingtries=3
+    #Only negotiate a conn. 3 times.
+
+    ikelifetime=8h
+    keylife=1h
+
+    ike=aes256-sha1;modp1024!
+    phase2alg=aes256-sha1;modp1024
+    # specifies the phase 1 encryption scheme, the hashing algorithm, and the diffie-hellman group. The modp1024 is for Diffie-Hellman 2. Why 'modp' instead of dh? DH2 is a 1028 bit encryption algorithm that modulo's a prime number, e.g. modp1028. See RFC 5114 for details or the wiki page on diffie hellmann, if interested.
+
+    type=transport
+    #because we use l2tp as tunnel protocol
+
+    left=%SERVERIP%
+    #fill in server IP above
+
+    leftprotoport=17/1701
+    right=%any
+    rightprotoport=17/%any
+
+    dpddelay=10
+    # Dead Peer Dectection (RFC 3706) keepalives delay
+    dpdtimeout=20
+    #  length of time (in seconds) we will idle without hearing either an R_U_THERE poll from our peer, or an R_U_THERE_ACK reply.
+    dpdaction=clear
+    # When a DPD enabled peer is declared dead, what action should be taken. clear means the eroute and SA with both be cleared.
+</code></pre><h3 id=-ipsecsecrets>修改 <code>ipsec.secrets</code></h3><ul><li>获取服务器 IP:</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl http://ip.mtak.nl
+</code></pre></td></tr></table></div></div><ul><li>生成随机密匙:</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>openssl rand -hex <span class=m>30</span>
+</code></pre></td></tr></table></div></div><h3 id=ipsec--shared-secret><code>IPSec</code> 握手时的 <code>Shared Secret</code></h3><p><code>/etc/ipsec.secrets</code> 修改为:</p><pre><code class=language-conf data-lang=conf>%SERVERIP%  %any:   PSK &quot;%Shared Secret%&quot;
+</code></pre><h3 id=-ipsec>验证 <code>IPSec</code></h3><p>验证 <code>IPSec</code> 是否正常工作</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ipsec verify
+</code></pre></td></tr></table></div></div><h3 id=heading5>遇到问题</h3><h4 id=1-netkey-testing-xfrm-related-proc-values--failed>问题1 <code>NETKEY: Testing XFRM related proc values [FAILED]</code></h4><p><code>NETKEY: Testing XFRM related proc values [FAILED]</code></p><p>应该是忘记修改网络策略, 解决方法:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=k>for</span> each in /proc/sys/net/ipv4/conf/*
+<span class=k>do</span>
+    <span class=nb>echo</span> <span class=m>0</span> &gt; <span class=nv>$each</span>/accept_redirects
+    <span class=nb>echo</span> <span class=m>0</span> &gt; <span class=nv>$each</span>/send_redirects
+<span class=k>done</span>
+</code></pre></td></tr></table></div></div><h4 id=2-hardware-rng-detected-testing-if-used-properly--failed>问题2 <code>Hardware RNG detected, testing if used properly [FAILED]</code></h4><p><code>Hardware RNG detected, testing if used properly [FAILED]</code></p><p>解决方法:</p><pre><code>sudo apt-get install rng-tools
+</code></pre><p>再次验证 <code>IPSec</code> 是否正常工作, <code>ipsec verify</code>, 已经正常.</p><h2 id=-xl2tpd>配置 <code>xl2tpd</code></h2><h3 id=-xl2tpdconf>配置 <code>xl2tpd.conf</code></h3><p><code>/etc/xl2tpd/xl2tpd.conf</code> 修改成:</p><pre><code class=language-conf data-lang=conf>[global]
+ipsec saref = yes
+saref refinfo = 30
+
+;debug avp = yes
+;debug network = yes
+;debug state = yes
+;debug tunnel = yes
+
+[lns default]
+ip range = 172.16.1.30-172.16.1.100
+local ip = 172.16.1.1
+refuse pap = yes
+require authentication = yes
+;ppp debug = yes
+pppoptfile = /etc/ppp/options.xl2tpd
+length bit = yes
+</code></pre><h3 id=heading6>用户认证</h3><p>编辑 <code>/etc/xl2tpd/xl2tpd.conf</code>:</p><pre><code class=language-conf data-lang=conf># 增加这一行:
+unix authentication = yes
+# 删除这一行:
+refuse pap = yes
+</code></pre><p>更改 <code>/etc/pam.d/ppp</code> 成:</p><pre><code class=language-conf data-lang=conf>auth    required        pam_nologin.so
+auth    required        pam_unix.so
+account required        pam_unix.so
+session required        pam_unix.so
+</code></pre><p>修改 <code>/etc/ppp/options.xl2tpd</code>:</p><pre><code class=language-conf data-lang=conf>login
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+auth
+mtu 1200
+mru 1000
+crtscts
+hide-password
+modem
+name l2tpd
+proxyarp
+lcp-echo-interval 30
+lcp-echo-failure 4
+</code></pre><h1 id=heading7>使用</h1><h2 id=heading8>增加用户</h2><p>修改 <code>/etc/ppp/chap-secrets</code>:</p><pre><code class=language-conf data-lang=conf># Secrets for authentication using CHAP
+# client       server  secret                  IP addresses
+user1          l2tpd   pass1                        *
+user2          l2tpd   pass2                        *
+</code></pre><h2 id=heading9>重启服务</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>/etc/init.d/ipsec restart
+/etc/init.d/xl2tpd restart
+</code></pre></td></tr></table></div></div><h2 id=heading10>查看错误日志</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>cat /var/log/syslog
+cat /var/log/auth.log
+</code></pre></td></tr></table></div></div><h1 id=enjoy>Enjoy!</h1></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Mindy Cong</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2019-03-25
+<a href=https://github.com/9ft/log/commit/c1be0713d341c437b4f319e1a15520359951d335 title="migrate post">(c1be071)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=prev href=/post/deploy-ss/><i class="iconfont icon-left"></i><span class="prev-text nav-default">SS搭建</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/hello-world/><span class="next-text nav-default">First Post</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='mindytech';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=http://mindy.tk/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2017 -
+2019
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Mindy Cong</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-46567212-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
