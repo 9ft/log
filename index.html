@@ -1,19 +1,165 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>log</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Mindy Cong"><meta name=description content="just a blog"><meta name=keywords content="Tech,Code,Life"><meta name=generator content="Hugo 0.61.0 with theme even"><link rel=canonical href=http://mindy.tk/><link href=http://mindy.tk/index.xml rel=alternate type=application/rss+xml title=log><link href=http://mindy.tk/index.xml rel=feed type=application/rss+xml title=log><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property="og:title" content="log"><meta property="og:description" content="just a blog"><meta property="og:type" content="website"><meta property="og:url" content="http://mindy.tk/"><meta property="og:updated_time" content="2019-03-24T15:26:51+08:00"><meta itemprop=name content="log"><meta itemprop=description content="just a blog"><meta name=twitter:card content="summary"><meta name=twitter:title content="log"><meta name=twitter:description content="just a blog"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/hugo/>迁移至Hugo</a></h1><div class=post-meta><span class=post-time>2019-03-24</span>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>log</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Mindy Cong"><meta name=description content="just a blog"><meta name=keywords content="Tech,Code,Life"><meta name=generator content="Hugo 0.65.3 with theme even"><link rel=canonical href=http://mindy.tk/><link href=http://mindy.tk/index.xml rel=alternate type=application/rss+xml title=log><link href=http://mindy.tk/index.xml rel=feed type=application/rss+xml title=log><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property="og:title" content="log"><meta property="og:description" content="just a blog"><meta property="og:type" content="website"><meta property="og:url" content="http://mindy.tk/"><meta property="og:updated_time" content="2019-03-24T15:26:51+08:00"><meta itemprop=name content="log"><meta itemprop=description content="just a blog"><meta name=twitter:card content="summary"><meta name=twitter:title content="log"><meta name=twitter:description content="just a blog"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/hugo/>迁移至Hugo</a></h1><div class=post-meta><span class=post-time>2019-03-24</span>
 <span class=more-meta>4 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>敬请期待</div><div class=read-more><a href=/post/hugo/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/supeervisor/>Supervisor 基本使用</a></h1><div class=post-meta><span class=post-time>2017-05-03</span>
+<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary><p>敬请期待</p></div><div class=read-more><a href=/post/hugo/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/supeervisor/>Supervisor 基本使用</a></h1><div class=post-meta><span class=post-time>2017-05-03</span>
 <span class=more-meta>461 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>Installation 1 2 pip install supervisor apt-get install supervisor Configuration echo_supervisord_conf 显示默认配置. echo_supervisord_conf > /etc/supervisor/supervisord.conf 默认配置重定向到文件. 建立要守护程序的配置文件 supervisor.conf: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 [program:t2w] directory = /root/repos/t2w ; 程序的</div><div class=read-more><a href=/post/supeervisor/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/samba/>Ubuntu 树莓派 Openwrt 下配置 Samba</a></h1><div class=post-meta><span class=post-time>2017-04-28</span>
+<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary><h1 id=installation>Installation</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>pip install supervisor
+apt-get install supervisor
+</code></pre></td></tr></table></div></div><h1 id=configuration>Configuration</h1><ul><li><code>echo_supervisord_conf</code> 显示默认配置.</li><li><code>echo_supervisord_conf > /etc/supervisor/supervisord.conf</code> 默认配置重定向到文件.</li><li>建立要守护程序的配置文件 <code>supervisor.conf</code>:</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[program:t2w]
+directory = /root/repos/t2w ; 程序的启动目录
+command = node index.js     ; 启动命令，可以看出与手动在命令行启动的命令是一样的
+autostart = true     ; 在 supervisord 启动的时候也自动启动
+startsecs = 5        ; 启动 5 秒后没有异常退出，就当作已经正常启动了
+autorestart = true   ; 程序异常退出后自动重启
+startretries = 3     ; 启动失败自动重试次数，默认是 3
+;user = root          ; 用哪个用户启动
+redirect_stderr = true  ; 把 stderr 重定向到 stdout，默认 false
+stdout_logfile_maxbytes = 20MB  ; stdout 日志文件大小，默认 50MB
+stdout_logfile_backups = 20     ; stdout 日志文件备份数
+; stdout 日志文件，需要注意当指定目录不存在时无法正常启动，所以需要手动创建目录（supervisord 会自动创建日志文件）
+stdout_logfile = /root/repos/t2w/log/log.log
+stderr_logfile = /root/repos/t2w/log/err.log
+
+; 可以通过 environment 来添加需要的环境变量，一种常见的用法是修改 PYTHONPATH
+; environment=PYTHONPATH=$PYTHONPATH:/path/to/somewhere
+</code></pre></td></tr></table></div></div><ul><li>将此配置文件 include 到 Supervisor 配置 <code>/etc/supervisor/supervisord.conf</code> 中:</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[include]
+files = /root/repos/t2w/supervisor.conf
+</code></pre></td></tr></table></div></div><p>或将此配置文件链接到 <code>/etc/supervisor/conf.d</code> 中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>ln -s /root/repos/t2w/supervisor.conf /etc/supervisor/conf.d/supervisor.t2w.conf
+</code></pre></td></tr></table></div></div><h2 id=webui>WebUI</h2><p>Supervisor 配置 <code>/etc/supervisor/supervisord.conf</code> 中:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[inet_http_server]
+port = *:9001
+username = user
+password = password
+</code></pre></td></tr></table></div></div><h1 id=使用>使用</h1><ul><li><code>supervisorctl reread</code> 重新读取配置文件</li><li><code>supervisorctl start t2w</code> 启动 t2w</li><li><code>supervisorctl status</code> 查看状态</li></ul><p>尝试一下杀掉进程后还会起来一个新的.</p><h1 id=遇到的问题>遇到的问题</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># supervisorctl start myapp
+myapp: ERROR (no such process)
+</code></pre></td></tr></table></div></div><h2 id=解决>解决</h2><p><a href=https://serverfault.com/questions/211525/supervisor-not-loading-new-configuration-files>Supervisor not loading new configuration files</a></p><p><code>sudo service supervisord reload</code></p></div><div class=read-more><a href=/post/supeervisor/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/samba/>Ubuntu 树莓派 Openwrt 下配置 Samba</a></h1><div class=post-meta><span class=post-time>2017-04-28</span>
 <span class=more-meta>298 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>Ubuntu 当然也适用于 Ubuntu Mate on Raspberry Pi Installation sudo apt-get install samba Configuration /etc/samba/smb.conf 中 1 2 3 4 5 6 7 8 9 # 仅修改部分 [global] netbios name = Yak # 主机名 [Yak] # 共享节点名称 path = / # 路径 browseable = yes writable = yes create mask = 0664 directory mask</div><div class=read-more><a href=/post/samba/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/mech-keyboard/>机械键盘</a></h1><div class=post-meta><span class=post-time>2017-03-21</span>
+<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary><h1 id=ubuntu>Ubuntu</h1><p>当然也适用于 Ubuntu Mate on Raspberry Pi</p><h2 id=installation>Installation</h2><p><code>sudo apt-get install samba</code></p><h2 id=configuration>Configuration</h2><p><code>/etc/samba/smb.conf</code> 中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># 仅修改部分
+[global]
+   netbios name = Yak   # 主机名
+[Yak]                   # 共享节点名称
+   path = /             # 路径
+   browseable = yes
+   writable = yes
+   create mask = 0664
+   directory mask = 0775
+</code></pre></td></tr></table></div></div><h2 id=建立用户>建立用户</h2><p>Samba的共享用户密码是单独配置的.</p><p><code>sudo smbpasswd -a NEW_USER</code></p><h2 id=重启服务>重启服务</h2><p>Samba 服务名为 smbd</p><p><code>sudo service smbd restart</code></p><h1 id=centos>CentOS</h1><h2 id=installation-1>Installation</h2><p><code>yum install samba</code></p><h2 id=configuration-1>Configuration</h2><p>同 Ubuntu</p><h2 id=重启服务-1>重启服务</h2><p>Samba 服务名为 smb</p><p><code>service smb restart</code></p><h1 id=openwrt>OpenWrt</h1><h2 id=installation-2>Installation</h2><p>查找软件包</p><p><code>opkg list | grep samba</code></p><p>安装</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>opkg install samba36-server
+opkg install luci-i18n-samba-zh-cn
+</code></pre></td></tr></table></div></div><h2 id=configuration-2>Configuration</h2><p>与 Ubuntu 不同的是配置文件要修改 <code>/etc/samba/smb.conf.template</code></p><p>luci 修改更方便</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># 仅修改部分 (忘记能不能用了，因为现在不用 Openwrt 挂载存储了)
+[global]
+   netbios name = Giraffe    # 主机名
+   # invalid users = root    # 使 root 用户可用
+
+[Giraffe]
+   path = /root
+   read only = no
+   guest ok = no
+   create mask = 0664
+   directory mask = 0775
+
+[root]
+   path = /
+   read only = no
+   guest ok = no
+   create mask = 0664
+   directory mask = 0775
+</code></pre></td></tr></table></div></div><h2 id=建立用户-1>建立用户</h2><p><code>smbpasswd -a root</code></p><h2 id=重启服务-2>重启服务</h2><p><code>/etc/init.d/samba restart</code></p><p><a href=http://www.dreamxu.com/raspberrypi-nas/>http://www.dreamxu.com/raspberrypi-nas/</a></p></div><div class=read-more><a href=/post/samba/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/mech-keyboard/>机械键盘</a></h1><div class=post-meta><span class=post-time>2017-03-21</span>
 <span class=more-meta>745 words</span>
-<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary>Filco Majestouch MINILA Air 第一架机械键盘。 优点: 蓝牙，推崇无线外设，无线一定是趋势。 青轴，用来打字。 便携，标准 104 键跟 67 键比简直就是怪物。 美观，奶酪绿的配色十分</div><div class=read-more><a href=/post/mech-keyboard/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/office-install/>自定义安装 Office 2016</a></h1><div class=post-meta><span class=post-time>2016-12-04</span>
-<span class=more-meta>159 words</span>
-<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary>安装 Office 2016 的时候没有了自定义安装的选项, 默认安装全家桶. 解决方法 下载 Office 2016 Deployment Tool 运行后会生成 setup.exe 和 configuration.xml. 编辑 configuration.xml, 配置 安装文件路径，版本，语言，要排除的组件</div><div class=read-more><a href=/post/office-install/ class=read-more-link>Read more...</a></div></div></article></section><nav class=pagination><a class=next href=/page/2/><span class=next-text>Next</span>
+<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary><h2 id=filco-majestouch-minila-air>Filco Majestouch MINILA Air</h2><p><img src=/img/post/2017-03-21-mech-keyboard/IMG20150515143414.jpg alt title="Filco Majestouch MINILA Air"></p><p>第一架机械键盘。</p><p>优点:</p><ul><li><strong>蓝牙</strong>，推崇无线外设，无线一定是趋势。</li><li><strong>青轴</strong>，用来打字。</li><li><strong>便携</strong>，标准 104 键跟 67 键比简直就是怪物。</li><li><strong>美观</strong>，奶酪绿的配色十分可人。</li></ul><p>有利必有弊，除了美观这点无可挑剔以外，其他优点也都是痛点。</p><p>缺点:</p><p>虽然这架键盘的蓝牙连接支持记忆三台设备，但从来就不好用过，每次更换设备都是重新配对，这点跟自己在用的蓝牙运动耳机一样，多设备切换总是不如有线方便。</p><p>一个人用青轴真的太爽了，噼里啪啦的打字特别带劲，但青轴十分不适合在宿舍或办公室使用，声音太轻脆，就青轴的轴体来说也只适合打字，打游戏别想了，老老实实换上薄膜键盘吧。</p><p>上上网，敲敲代码的话 67 键很好用，你会发现 F 键使用率实际很低。新 MacBook 把 F 键去掉也是有道理的，然而打游戏的时候&mldr;还是 87 键好一点吧。</p><p><strong>总的来说还是非常喜欢这架键盘的！</strong></p><h2 id=vidikon-威迪光-gtw-87>ViDikon 威迪光 GTW 87</h2><p>这架键盘是在张大妈上看到的，因为价格便宜果断入手，查了下现在已经买不到了。<a href=http://www.smzdm.com/p/6213926/>什么值得买: <em>ViDikon 威迪光 GTW 87 机械键盘</em></a></p><p>买的时候没抱太大希望，打算当个备用键盘而已，结果这架键盘超出预期，使用率相当高，甚至让我的 Filco MINILA Air 都差点打入冷宫。</p><ul><li><strong>黑轴</strong>，高特轴，看轴体上印的是 “Qutemu” ，<a href="https://www.google.com/search?q=Qutemu">Google 一下</a>啥也查不到，但他的中文名 “高特轴” 可以搜到不少东西，明显不如室友的 cherry 黑轴，手感偏硬，打字手容易酸。</li><li><strong>87 键</strong>，键盘布局跟 Filco 87 一毛一样，标准键位是个好东西。</li><li><strong>背光</strong>， 以前是反对背光的，光污染嘛，但是好像开着的时候比较多，不喜欢的时候可以关掉。</li><li><strong>媒体控制键</strong>，经常听音乐，这个用的很多，切歌调音量很方便。</li></ul><p>用化学品把键盘的商标洗掉了，现在可以叫他无印键盘了。现在超喜欢这架键盘，买了 ¥9.6 包邮键帽搭配一下。</p><p><img src=/img/post/2017-03-21-mech-keyboard/IMG_6257.jpg alt title="GTW 87 Pink"></p><p>后来搭配的绿色键帽，做工很精细。</p><p><img src=/img/post/2017-03-21-mech-keyboard/IMG_2467.jpg alt title="GTW 87 Green"></p><h2 id=想要这样一架键盘>想要这样一架键盘</h2><ul><li>87 键</li><li>白色外观</li><li>黑轴</li><li>蓝牙有线双模</li><li>媒体控制键</li></ul><p>满足上面条件的键盘市面上竟然没有。</p></div><div class=read-more><a href=/post/mech-keyboard/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/office-install/>自定义安装 Office 2016</a></h1><div class=post-meta><span class=post-time>2016-12-04</span>
+<span class=more-meta>160 words</span>
+<span class=more-meta>1 min read</span></div></header><div class=post-content><div class=post-summary><p>安装 Office 2016 的时候没有了自定义安装的选项, 默认安装全家桶.</p><p><img src=/img/post/2016-12-04-office-install/office_before.jpg alt title=Before></p><p><strong>解决方法</strong></p><p>下载 <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49117"><code>Office 2016 Deployment Tool</code></a></p><p>运行后会生成 <code>setup.exe</code> 和 <code>configuration.xml</code>.</p><p>编辑 <code>configuration.xml</code>, 配置 <code>安装文件路径</code>，<code>版本</code>，<code>语言</code>，<code>要排除的组件</code>, 下面是我的配置文件.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-xml data-lang=xml><span class=c>&lt;!-- Install Word, Excel, PowerPoint --&gt;</span>
+<span class=nt>&lt;Configuration&gt;</span>
+  <span class=nt>&lt;Add</span> <span class=na>SourcePath=</span><span class=s>&#34;E:\&#34;</span> <span class=na>OfficeClientEdition=</span><span class=s>&#34;64&#34;</span><span class=nt>&gt;</span>
+    <span class=nt>&lt;Product</span> <span class=na>ID=</span><span class=s>&#34;ProPlusRetail&#34;</span><span class=nt>&gt;</span>
+      <span class=nt>&lt;Language</span> <span class=na>ID=</span><span class=s>&#34;zh-CN&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;Access&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;Groove&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;InfoPath&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;Lync&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;OneNote&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;Outlook&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;Publisher&#34;</span> <span class=nt>/&gt;</span>
+      <span class=nt>&lt;ExcludeApp</span> <span class=na>ID=</span><span class=s>&#34;SharePointDesigner&#34;</span> <span class=nt>/&gt;</span>
+    <span class=nt>&lt;/Product&gt;</span>
+  <span class=nt>&lt;/Add&gt;</span>
+<span class=nt>&lt;/Configuration&gt;</span>
+</code></pre></td></tr></table></div></div><p>管理员方式运行命令提示符, 运行 <code>setup.exe /configure configuration.xml</code>.</p><p><img src=/img/post/2016-12-04-office-install/office_after.png alt title=After></p><p>搞定!</p></div><div class=read-more><a href=/post/office-install/ class=read-more-link>Read more...</a></div></div></article></section><nav class=pagination><a class=next href=/page/2/><span class=next-text>Next</span>
 <i class="iconfont icon-right"></i></a></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=http://mindy.tk/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
 <span class=division>|</span>
 <span class=theme-info>Theme -
 <a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
 <span class=copyright-year>&copy;
 2017 -
-2019
+2020
 <span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Mindy Cong</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-46567212-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
