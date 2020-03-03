@@ -21,7 +21,7 @@ googleAnalytics = "UA-46567212-1"
 copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name ↓
 
 [author]
-  name = "Mindy Cong"
+  name = "Minzhang Cong"
 
 [sitemap]                 # essential                     # 必需
   changefreq = "weekly"
@@ -198,3 +198,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
 #  section = ["HTML", "RSS"]
 #  taxonomy = ["HTML", "RSS"]
 #  taxonomyTerm = ["HTML"]
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
