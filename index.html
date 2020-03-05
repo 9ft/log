@@ -1,4 +1,300 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>log</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Minzhang Cong"><meta name=description content="just a blog"><meta name=keywords content="Tech,Code,Life"><meta name=generator content="Hugo 0.65.3 with theme even"><link rel=canonical href=http://mindy.tk/><link href=http://mindy.tk/index.xml rel=alternate type=application/rss+xml title=log><link href=http://mindy.tk/index.xml rel=feed type=application/rss+xml title=log><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property="og:title" content="log"><meta property="og:description" content="just a blog"><meta property="og:type" content="website"><meta property="og:url" content="http://mindy.tk/"><meta property="og:updated_time" content="2019-11-08T08:00:00+08:00"><meta itemprop=name content="log"><meta itemprop=description content="just a blog"><meta name=twitter:card content="summary"><meta name=twitter:title content="log"><meta name=twitter:description content="just a blog"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/profiling/>系统和应用性能分析工具</a></h1><div class=post-meta><span class=post-time>2019-11-08</span>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>log</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Minzhang Cong"><meta name=description content="just a blog"><meta name=keywords content="Tech,Code,Life"><meta name=generator content="Hugo 0.66.0 with theme even"><link rel=canonical href=http://mindy.tk/><link href=http://mindy.tk/index.xml rel=alternate type=application/rss+xml title=log><link href=http://mindy.tk/index.xml rel=feed type=application/rss+xml title=log><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property="og:title" content="log"><meta property="og:description" content="just a blog"><meta property="og:type" content="website"><meta property="og:url" content="http://mindy.tk/"><meta property="og:updated_time" content="2020-03-05T08:00:00+08:00"><meta itemprop=name content="log"><meta itemprop=description content="just a blog"><meta name=twitter:card content="summary"><meta name=twitter:title content="log"><meta name=twitter:description content="just a blog"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><section id=posts class=posts><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/rockermq-docker/>使用Docker搭建RocketMq</a></h1><div class=post-meta><span class=post-time>2020-03-05</span>
+<span class=more-meta>1674 words</span>
+<span class=more-meta>4 mins read</span></div></header><div class=post-content><div class=post-summary><p>一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，docker-compose方式可以清晰的用多容器模拟分布式的状态。因为是单机器并且性能不强的情况下搭建，遇到一些坑，这里记录一下，搭建完成后使用go版本sdk进行生产消费操作</p><h1 id=安装>安装</h1><h2 id=1-生成docker-composeyml>1. 生成docker-compose.yml</h2><p>使用官方提供的工具(<a href=https://github.com/apache/rocketmq-docker.git>RocketMQ-Docker</a>)生成docker-compose.yml</p><p><code>git clone https://github.com/apache/rocketmq-docker.git</code></p><p>设置RocketMq版本，其中确保设置的<code>RMQ-VERSION</code>在<a href=https://hub.docker.com/r/apacherocketmq/rocketmq/tags>官方仓库tag</a>中存在，如4.6.0</p><p><code>sh stage.sh RMQ-VERSION</code></p><p>执行后生成的docker-compose.yml连同配置文件放在<code>stages/4.6.0/docker-compose</code>中，可以将此文件夹拷贝出来或者直接在此文件夹运行。</p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/rmq-deploy.png alt></p><p>生成的docker-compose包括3个服务，对应上图可以理解RocketMQ的部署结构:</p><ul><li>1个无状态的<code>namesrv</code>, Name Server是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。</li><li>2个外部挂载配置文件的<code>broker</code>, 此配置中两个都为Master无Slave</li></ul><h2 id=2-增加可视化界面可选>2. 增加可视化界面(可选)</h2><p>可以将官方提供的<a href=https://github.com/apache/rocketmq-externals/tree/master/rocketmq-console>rocketmq-console</a>放入docker-compose.yml中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>rocketmq-console-ng:
+  image: styletang/rocketmq-console-ng
+  container_name: rocketmq-console-ng
+  ports:
+    - 8087:8080
+  depends_on:
+    - namesrv
+  environment:
+    - JAVA_OPTS= -Dlogging.level.root=info   -Drocketmq.namesrv.addr=namesrv:9876 
+    - Dcom.rocketmq.sendMessageWithVIPChannel=false
+</code></pre></td></tr></table></div></div><h2 id=3-运行>3. 运行</h2><p><code>docker-compose up -d</code> 启动</p><p>官方有提供启动脚本 <code>play-docker-compose.sh</code>，我看了一下只是生成一些目录，没有必要使用，运行时会自动生成这些空挂载目录的</p><p>❗️可能遇到的情况</p><ol><li><p>broker意外退出(<a href=https://github.com/apache/rocketmq-externals/issues/78>issue 78</a>)</p><p>原因: 可能是由于jvm内存配置原因(默认配置一个broker需要4+4=8G内存)</p><p>解决: 减少内存使用, 对broker增加环境变量<code>JAVA_OPT_EXT</code> 值为 <code>-server -Xms128m -Xmx128m</code></p></li></ol><p>启动后打开<code>ip:8087</code>进入图形界面</p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/console-cluster-ip-invalid.png alt></p><h2 id=4-配置broker>4. 配置broker</h2><h3 id=配置ip>配置IP</h3><p>此时cluster内可以查看启动的两个broker信息，生产消费时，客户端会连接namesvr查找broker地址，再直连broker，然而目前的broker地址是docker内部地址，需要将此地址手动设置为外部可连接的地址。</p><p>配置文件 <code>broker.conf</code> 中增加手动配置IP</p><p><code>brokerIP1=10.0.0.211</code></p><h3 id=配置监听端口>配置监听端口</h3><p>目前是单台机器部署两个broker，都使用同一个IP并且都使用默认端口的话，会造成端口冲突，比如上图所示目前默认状态两个broker都监听了10911端口，还需要将broker监听端口进行配置，与此同时更新docker-compose.yml里暴露的端口。</p><p><code>listenPort=11911</code></p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/console-cluster-ip-valid.png alt></p><p>重新运行后，两个broker使用同一个ip监听不同端口，看起来没问题</p><blockquote><p>broker配置文档: <a href=https://rocketmq.apache.org/docs/rmq-deployment/#broker-configuration>Broker configuration</a></p></blockquote><h2 id=完整配置>完整配置</h2><p>broker-a 的配置文件 <code>data/conf/broker.conf</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>brokerClusterName = DefaultCluster
+brokerName = broker-a
+brokerId = 0
+deleteWhen = 04
+fileReservedTime = 48
+brokerRole = ASYNC_MASTER
+flushDiskType = ASYNC_FLUSH
+
+brokerIP1=10.0.0.211
+</code></pre></td></tr></table></div></div><p>broker-b 的配置文件 <code>data1/conf/broker.conf</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>brokerClusterName = DefaultCluster
+brokerName = broker-b
+brokerId = 0
+deleteWhen = 04
+fileReservedTime = 48
+brokerRole = ASYNC_MASTER
+flushDiskType = ASYNC_FLUSH
+
+brokerIP1=10.0.0.211
+listenPort=11911
+</code></pre></td></tr></table></div></div><p><code>docker-compose.yml</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yml data-lang=yml><span class=k>version</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;2&#39;</span><span class=w>
+</span><span class=w></span><span class=k>services</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=c>#Service for nameserver</span><span class=w>
+</span><span class=w>  </span><span class=k>namesrv</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>apacherocketmq/rocketmq<span class=p>:</span><span class=m>4.6.0</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rmqnamesrv<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>9876</span><span class=p>:</span><span class=m>9876</span><span class=w>
+</span><span class=w>    </span><span class=k>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- ./data/namesrv/logs<span class=p>:</span>/home/rocketmq/logs<span class=w>
+</span><span class=w>    </span><span class=k>command</span><span class=p>:</span><span class=w> </span>sh<span class=w> </span>mqnamesrv<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c>#Service for broker</span><span class=w>
+</span><span class=w>  </span><span class=k>broker</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>apacherocketmq/rocketmq<span class=p>:</span><span class=m>4.6.0</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rmqbroker<span class=w>
+</span><span class=w>    </span><span class=k>links</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- namesrv<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>10909</span><span class=p>:</span><span class=m>10909</span><span class=w>
+</span><span class=w>      </span>- <span class=m>10911</span><span class=p>:</span><span class=m>10911</span><span class=w>
+</span><span class=w>      </span>- <span class=m>10912</span><span class=p>:</span><span class=m>10912</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- NAMESRV_ADDR=namesrv<span class=p>:</span><span class=m>9876</span><span class=w>
+</span><span class=w>      </span>- JAVA_OPT_EXT=-server<span class=w> </span>-Xms128m<span class=w> </span>-Xmx128m<span class=w>
+</span><span class=w>    </span><span class=k>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- ./data/broker/logs<span class=p>:</span>/home/rocketmq/logs<span class=w>
+</span><span class=w>      </span>- ./data/broker/store<span class=p>:</span>/home/rocketmq/store<span class=w>
+</span><span class=w>      </span>- ./data/broker/conf/broker.conf<span class=p>:</span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>    </span><span class=k>command</span><span class=p>:</span><span class=w> </span>sh<span class=w> </span>mqbroker<span class=w> </span>-c<span class=w> </span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c>#Service for another broker -- broker1</span><span class=w>
+</span><span class=w>  </span><span class=k>broker1</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>apacherocketmq/rocketmq<span class=p>:</span><span class=m>4.6.0</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rmqbroker-b<span class=w>
+</span><span class=w>    </span><span class=k>links</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- namesrv<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>11909</span><span class=p>:</span><span class=m>11909</span><span class=w>
+</span><span class=w>      </span>- <span class=m>11911</span><span class=p>:</span><span class=m>11911</span><span class=w>
+</span><span class=w>      </span>- <span class=m>11912</span><span class=p>:</span><span class=m>11912</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- NAMESRV_ADDR=namesrv<span class=p>:</span><span class=m>9876</span><span class=w>
+</span><span class=w>      </span>- JAVA_OPT_EXT=-server<span class=w> </span>-Xms128m<span class=w> </span>-Xmx128m<span class=w>
+</span><span class=w>    </span><span class=k>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- ./data1/broker/logs<span class=p>:</span>/home/rocketmq/logs<span class=w>
+</span><span class=w>      </span>- ./data1/broker/store<span class=p>:</span>/home/rocketmq/store<span class=w>
+</span><span class=w>      </span>- ./data1/broker/conf/broker.conf<span class=p>:</span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>    </span><span class=k>command</span><span class=p>:</span><span class=w> </span>sh<span class=w> </span>mqbroker<span class=w> </span>-c<span class=w> </span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>rocketmq-console-ng</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>styletang/rocketmq-console-ng<span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rocketmq-console-ng<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>8087</span><span class=p>:</span><span class=m>8080</span><span class=w>
+</span><span class=w>    </span><span class=k>depends_on</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- namesrv<span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- JAVA_OPTS=<span class=w> </span>-Dlogging.level.root=info<span class=w>   </span>-Drocketmq.namesrv.addr=namesrv<span class=p>:</span><span class=m>9876</span><span class=w> 
+</span><span class=w>      </span>- Dcom.rocketmq.sendMessageWithVIPChannel=<span class=kc>false</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h1 id=使用>使用</h1><h2 id=rocketmq-client-go>rocketmq-client-go</h2><p>官方已经出go原生的客户端<a href=https://github.com/apache/rocketmq-client-go/tree/native>rocketmq-client-go</a></p><p>获取库: <code>go get github.com/apache/rocketmq-client-go/v2</code></p><p>使用库自带的examples进行测试</p><h3 id=producer>producer</h3><p>向<code>topic: test</code>中发送消息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>p</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>rocketmq</span><span class=p>.</span><span class=nf>NewProducer</span><span class=p>(</span>
+    <span class=nx>producer</span><span class=p>.</span><span class=nf>WithNameServer</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;10.0.0.211:9876&#34;</span><span class=p>}),</span>
+    <span class=nx>producer</span><span class=p>.</span><span class=nf>WithRetry</span><span class=p>(</span><span class=mi>2</span><span class=p>),</span>
+  <span class=p>)</span>
+  <span class=nx>err</span> <span class=o>:=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Start</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;start producer error: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+    <span class=nx>os</span><span class=p>.</span><span class=nf>Exit</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=nx>topic</span> <span class=o>:=</span> <span class=s>&#34;test&#34;</span>
+
+  <span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+    <span class=nx>msg</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>primitive</span><span class=p>.</span><span class=nx>Message</span><span class=p>{</span>
+      <span class=nx>Topic</span><span class=p>:</span> <span class=nx>topic</span><span class=p>,</span>
+      <span class=nx>Body</span><span class=p>:</span>  <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=s>&#34;Hello RocketMQ Go Client! &#34;</span> <span class=o>+</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>i</span><span class=p>)),</span>
+    <span class=p>}</span>
+    <span class=nx>res</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>SendSync</span><span class=p>(</span><span class=nx>context</span><span class=p>.</span><span class=nf>Background</span><span class=p>(),</span> <span class=nx>msg</span><span class=p>)</span>
+
+    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+      <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;send message error: %s\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+      <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;send message success: result=%s\n&#34;</span><span class=p>,</span> <span class=nx>res</span><span class=p>.</span><span class=nf>String</span><span class=p>())</span>
+    <span class=p>}</span>
+  <span class=p>}</span>
+  <span class=nx>err</span> <span class=p>=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;shutdown producer error: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=consumer>consumer</h3><p>消费组<code>testGroup</code>订阅<code>topic: test</code>的消息进行消费</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>c</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>rocketmq</span><span class=p>.</span><span class=nf>NewPushConsumer</span><span class=p>(</span>
+    <span class=nx>consumer</span><span class=p>.</span><span class=nf>WithGroupName</span><span class=p>(</span><span class=s>&#34;testGroup&#34;</span><span class=p>),</span>
+    <span class=nx>consumer</span><span class=p>.</span><span class=nf>WithNameServer</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;10.0.0.211:9876&#34;</span><span class=p>}),</span>
+  <span class=p>)</span>
+  <span class=nx>err</span> <span class=o>:=</span> <span class=nx>c</span><span class=p>.</span><span class=nf>Subscribe</span><span class=p>(</span><span class=s>&#34;test&#34;</span><span class=p>,</span> <span class=nx>consumer</span><span class=p>.</span><span class=nx>MessageSelector</span><span class=p>{},</span> <span class=kd>func</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span>
+    <span class=nx>msgs</span> <span class=o>...*</span><span class=nx>primitive</span><span class=p>.</span><span class=nx>MessageExt</span><span class=p>)</span> <span class=p>(</span><span class=nx>consumer</span><span class=p>.</span><span class=nx>ConsumeResult</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>msgs</span> <span class=p>{</span>
+      <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;subscribe callback: %v \n&#34;</span><span class=p>,</span> <span class=nx>msgs</span><span class=p>[</span><span class=nx>i</span><span class=p>])</span>
+    <span class=p>}</span>
+
+    <span class=k>return</span> <span class=nx>consumer</span><span class=p>.</span><span class=nx>ConsumeSuccess</span><span class=p>,</span> <span class=kc>nil</span>
+  <span class=p>})</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+  <span class=p>}</span>
+  <span class=c1>// Note: start after subscribe
+</span><span class=c1></span>  <span class=nx>err</span> <span class=p>=</span> <span class=nx>c</span><span class=p>.</span><span class=nf>Start</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+    <span class=nx>os</span><span class=p>.</span><span class=nf>Exit</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Hour</span><span class=p>)</span>
+  <span class=nx>err</span> <span class=p>=</span> <span class=nx>c</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;shutdown Consumer error: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>Dashboard中查看监控，两个broker都在正常工作，符合预期，搭建完成</p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/two-cluster.png alt></p><h1 id=ref>Ref</h1><p><a href=http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/>[1] 十分钟入门RocketMQ</a></p></div><div class=read-more><a href=/post/rockermq-docker/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/profiling/>系统和应用性能分析工具</a></h1><div class=post-meta><span class=post-time>2019-11-08</span>
 <span class=more-meta>1313 words</span>
 <span class=more-meta>3 mins read</span></div></header><div class=post-content><div class=post-summary><h1 id=linux-性能分析>Linux 性能分析</h1><h2 id=系统级别>系统级别</h2><p><img src=/img/post/2020-03-03-profiling/linux_observability_tools.png alt=Linux架构，如何检查每个部件是否正常工作></p><h3 id=一些命令>一些命令</h3><ul><li><code>uptime</code>: 查看cpu负载</li><li><code>top (htop)</code>: 进程的资源占用状况</li><li><code>ps</code>: 显示进程(process) 的状态</li><li><code>vmstat (free)</code>: 内存整体使用情况</li><li><code>iostat</code>: 磁盘的一些指标</li><li><code>mpstat</code>: 显示每个 CPU 核心的工作情况</li><li><code>ping</code>: 连通性和延迟</li><li><code>nicstat</code>: 网卡的一些指标</li><li><code>dstat</code>: 综合cpu, memory, IO, network, 实时展示当前的系统资源利用情况</li></ul><p>高级一些的命令 <code>sar</code>, <code>netstat</code>, <code>pidstat</code>, <code>strace</code>, <code>tcpdump</code>, <code>blktrace</code>, <code>iotop</code>, <code>slabtop</code>, <code>sysctl</code>, <code>/proc</code></p><h3 id=快速查看整体状态>快速查看整体状态</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -166,9 +462,7 @@ opkg install luci-i18n-samba-zh-cn
    guest ok = no
    create mask = 0664
    directory mask = 0775
-</code></pre></td></tr></table></div></div><h2 id=建立用户-1>建立用户</h2><p><code>smbpasswd -a root</code></p><h2 id=重启服务-2>重启服务</h2><p><code>/etc/init.d/samba restart</code></p><p><a href=http://www.dreamxu.com/raspberrypi-nas/>http://www.dreamxu.com/raspberrypi-nas/</a></p></div><div class=read-more><a href=/post/samba/ class=read-more-link>Read more...</a></div></div></article><article class=post><header class=post-header><h1 class=post-title><a class=post-link href=/post/mech-keyboard/>机械键盘</a></h1><div class=post-meta><span class=post-time>2017-03-21</span>
-<span class=more-meta>745 words</span>
-<span class=more-meta>2 mins read</span></div></header><div class=post-content><div class=post-summary><h2 id=filco-majestouch-minila-air>Filco Majestouch MINILA Air</h2><p><img src=/img/post/2017-03-21-mech-keyboard/IMG20150515143414.jpg alt title="Filco Majestouch MINILA Air"></p><p>第一架机械键盘。</p><p>优点:</p><ul><li><strong>蓝牙</strong>，推崇无线外设，无线一定是趋势。</li><li><strong>青轴</strong>，用来打字。</li><li><strong>便携</strong>，标准 104 键跟 67 键比简直就是怪物。</li><li><strong>美观</strong>，奶酪绿的配色十分可人。</li></ul><p>有利必有弊，除了美观这点无可挑剔以外，其他优点也都是痛点。</p><p>缺点:</p><p>虽然这架键盘的蓝牙连接支持记忆三台设备，但从来就不好用过，每次更换设备都是重新配对，这点跟自己在用的蓝牙运动耳机一样，多设备切换总是不如有线方便。</p><p>一个人用青轴真的太爽了，噼里啪啦的打字特别带劲，但青轴十分不适合在宿舍或办公室使用，声音太轻脆，就青轴的轴体来说也只适合打字，打游戏别想了，老老实实换上薄膜键盘吧。</p><p>上上网，敲敲代码的话 67 键很好用，你会发现 F 键使用率实际很低。新 MacBook 把 F 键去掉也是有道理的，然而打游戏的时候&mldr;还是 87 键好一点吧。</p><p><strong>总的来说还是非常喜欢这架键盘的！</strong></p><h2 id=vidikon-威迪光-gtw-87>ViDikon 威迪光 GTW 87</h2><p>这架键盘是在张大妈上看到的，因为价格便宜果断入手，查了下现在已经买不到了。<a href=http://www.smzdm.com/p/6213926/>什么值得买: <em>ViDikon 威迪光 GTW 87 机械键盘</em></a></p><p>买的时候没抱太大希望，打算当个备用键盘而已，结果这架键盘超出预期，使用率相当高，甚至让我的 Filco MINILA Air 都差点打入冷宫。</p><ul><li><strong>黑轴</strong>，高特轴，看轴体上印的是 “Qutemu” ，<a href="https://www.google.com/search?q=Qutemu">Google 一下</a>啥也查不到，但他的中文名 “高特轴” 可以搜到不少东西，明显不如室友的 cherry 黑轴，手感偏硬，打字手容易酸。</li><li><strong>87 键</strong>，键盘布局跟 Filco 87 一毛一样，标准键位是个好东西。</li><li><strong>背光</strong>， 以前是反对背光的，光污染嘛，但是好像开着的时候比较多，不喜欢的时候可以关掉。</li><li><strong>媒体控制键</strong>，经常听音乐，这个用的很多，切歌调音量很方便。</li></ul><p>用化学品把键盘的商标洗掉了，现在可以叫他无印键盘了。现在超喜欢这架键盘，买了 ¥9.6 包邮键帽搭配一下。</p><p><img src=/img/post/2017-03-21-mech-keyboard/IMG_6257.jpg alt title="GTW 87 Pink"></p><p>后来搭配的绿色键帽，做工很精细。</p><p><img src=/img/post/2017-03-21-mech-keyboard/IMG_2467.jpg alt title="GTW 87 Green"></p><h2 id=想要这样一架键盘>想要这样一架键盘</h2><ul><li>87 键</li><li>白色外观</li><li>黑轴</li><li>蓝牙有线双模</li><li>媒体控制键</li></ul><p>满足上面条件的键盘市面上竟然没有。</p></div><div class=read-more><a href=/post/mech-keyboard/ class=read-more-link>Read more...</a></div></div></article></section><nav class=pagination><a class=next href=/page/2/><span class=next-text>Next</span>
+</code></pre></td></tr></table></div></div><h2 id=建立用户-1>建立用户</h2><p><code>smbpasswd -a root</code></p><h2 id=重启服务-2>重启服务</h2><p><code>/etc/init.d/samba restart</code></p><p><a href=http://www.dreamxu.com/raspberrypi-nas/>http://www.dreamxu.com/raspberrypi-nas/</a></p></div><div class=read-more><a href=/post/samba/ class=read-more-link>Read more...</a></div></div></article></section><nav class=pagination><a class=next href=/page/2/><span class=next-text>Next</span>
 <i class="iconfont icon-right"></i></a></nav></div></div></main><footer id=footer class=footer><div class=social-links><a href=http://mindy.tk/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
 <span class=division>|</span>
 <span class=theme-info>Theme -

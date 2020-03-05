@@ -1,0 +1,309 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>使用Docker搭建RocketMq - log</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="Minzhang Cong"><meta name=description content="一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，"><meta name=keywords content="Tech,Code,Life"><meta name=generator content="Hugo 0.66.0 with theme even"><link rel=canonical href=http://mindy.tk/post/rockermq-docker/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/dist/even.c2a46f00.min.css rel=stylesheet><meta property="og:title" content="使用Docker搭建RocketMq"><meta property="og:description" content="一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，"><meta property="og:type" content="article"><meta property="og:url" content="http://mindy.tk/post/rockermq-docker/"><meta property="article:published_time" content="2020-03-05T08:00:00+08:00"><meta property="article:modified_time" content="2020-03-06T01:04:42+08:00"><meta itemprop=name content="使用Docker搭建RocketMq"><meta itemprop=description content="一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，"><meta itemprop=datePublished content="2020-03-05T08:00:00+08:00"><meta itemprop=dateModified content="2020-03-06T01:04:42+08:00"><meta itemprop=wordCount content="1674"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="使用Docker搭建RocketMq"><meta name=twitter:description content="一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>log</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>log</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>使用Docker搭建RocketMq</h1><div class=post-meta><span class=post-time>2020-03-05</span>
+<span class=more-meta>1674 words</span>
+<span class=more-meta>4 mins read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#安装>安装</a><ul><li><a href=#1-生成docker-composeyml>1. 生成docker-compose.yml</a></li><li><a href=#2-增加可视化界面可选>2. 增加可视化界面(可选)</a></li><li><a href=#3-运行>3. 运行</a></li><li><a href=#4-配置broker>4. 配置broker</a><ul><li><a href=#配置ip>配置IP</a></li><li><a href=#配置监听端口>配置监听端口</a></li></ul></li><li><a href=#完整配置>完整配置</a></li></ul></li><li><a href=#使用>使用</a><ul><li><a href=#rocketmq-client-go>rocketmq-client-go</a><ul><li><a href=#producer>producer</a></li><li><a href=#consumer>consumer</a></li></ul></li></ul></li><li><a href=#ref>Ref</a></li></ul></nav></div></div><div class=post-content><p>一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，docker-compose方式可以清晰的用多容器模拟分布式的状态。因为是单机器并且性能不强的情况下搭建，遇到一些坑，这里记录一下，搭建完成后使用go版本sdk进行生产消费操作</p><h1 id=安装>安装</h1><h2 id=1-生成docker-composeyml>1. 生成docker-compose.yml</h2><p>使用官方提供的工具(<a href=https://github.com/apache/rocketmq-docker.git>RocketMQ-Docker</a>)生成docker-compose.yml</p><p><code>git clone https://github.com/apache/rocketmq-docker.git</code></p><p>设置RocketMq版本，其中确保设置的<code>RMQ-VERSION</code>在<a href=https://hub.docker.com/r/apacherocketmq/rocketmq/tags>官方仓库tag</a>中存在，如4.6.0</p><p><code>sh stage.sh RMQ-VERSION</code></p><p>执行后生成的docker-compose.yml连同配置文件放在<code>stages/4.6.0/docker-compose</code>中，可以将此文件夹拷贝出来或者直接在此文件夹运行。</p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/rmq-deploy.png alt></p><p>生成的docker-compose包括3个服务，对应上图可以理解RocketMQ的部署结构:</p><ul><li>1个无状态的<code>namesrv</code>, Name Server是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。</li><li>2个外部挂载配置文件的<code>broker</code>, 此配置中两个都为Master无Slave</li></ul><h2 id=2-增加可视化界面可选>2. 增加可视化界面(可选)</h2><p>可以将官方提供的<a href=https://github.com/apache/rocketmq-externals/tree/master/rocketmq-console>rocketmq-console</a>放入docker-compose.yml中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>rocketmq-console-ng:
+  image: styletang/rocketmq-console-ng
+  container_name: rocketmq-console-ng
+  ports:
+    - 8087:8080
+  depends_on:
+    - namesrv
+  environment:
+    - JAVA_OPTS= -Dlogging.level.root=info   -Drocketmq.namesrv.addr=namesrv:9876 
+    - Dcom.rocketmq.sendMessageWithVIPChannel=false
+</code></pre></td></tr></table></div></div><h2 id=3-运行>3. 运行</h2><p><code>docker-compose up -d</code> 启动</p><p>官方有提供启动脚本 <code>play-docker-compose.sh</code>，我看了一下只是生成一些目录，没有必要使用，运行时会自动生成这些空挂载目录的</p><p>❗️可能遇到的情况</p><ol><li><p>broker意外退出(<a href=https://github.com/apache/rocketmq-externals/issues/78>issue 78</a>)</p><p>原因: 可能是由于jvm内存配置原因(默认配置一个broker需要4+4=8G内存)</p><p>解决: 减少内存使用, 对broker增加环境变量<code>JAVA_OPT_EXT</code> 值为 <code>-server -Xms128m -Xmx128m</code></p></li></ol><p>启动后打开<code>ip:8087</code>进入图形界面</p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/console-cluster-ip-invalid.png alt></p><h2 id=4-配置broker>4. 配置broker</h2><h3 id=配置ip>配置IP</h3><p>此时cluster内可以查看启动的两个broker信息，生产消费时，客户端会连接namesvr查找broker地址，再直连broker，然而目前的broker地址是docker内部地址，需要将此地址手动设置为外部可连接的地址。</p><p>配置文件 <code>broker.conf</code> 中增加手动配置IP</p><p><code>brokerIP1=10.0.0.211</code></p><h3 id=配置监听端口>配置监听端口</h3><p>目前是单台机器部署两个broker，都使用同一个IP并且都使用默认端口的话，会造成端口冲突，比如上图所示目前默认状态两个broker都监听了10911端口，还需要将broker监听端口进行配置，与此同时更新docker-compose.yml里暴露的端口。</p><p><code>listenPort=11911</code></p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/console-cluster-ip-valid.png alt></p><p>重新运行后，两个broker使用同一个ip监听不同端口，看起来没问题</p><blockquote><p>broker配置文档: <a href=https://rocketmq.apache.org/docs/rmq-deployment/#broker-configuration>Broker configuration</a></p></blockquote><h2 id=完整配置>完整配置</h2><p>broker-a 的配置文件 <code>data/conf/broker.conf</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>brokerClusterName = DefaultCluster
+brokerName = broker-a
+brokerId = 0
+deleteWhen = 04
+fileReservedTime = 48
+brokerRole = ASYNC_MASTER
+flushDiskType = ASYNC_FLUSH
+
+brokerIP1=10.0.0.211
+</code></pre></td></tr></table></div></div><p>broker-b 的配置文件 <code>data1/conf/broker.conf</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>brokerClusterName = DefaultCluster
+brokerName = broker-b
+brokerId = 0
+deleteWhen = 04
+fileReservedTime = 48
+brokerRole = ASYNC_MASTER
+flushDiskType = ASYNC_FLUSH
+
+brokerIP1=10.0.0.211
+listenPort=11911
+</code></pre></td></tr></table></div></div><p><code>docker-compose.yml</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yml data-lang=yml><span class=k>version</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;2&#39;</span><span class=w>
+</span><span class=w></span><span class=k>services</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=c>#Service for nameserver</span><span class=w>
+</span><span class=w>  </span><span class=k>namesrv</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>apacherocketmq/rocketmq<span class=p>:</span><span class=m>4.6.0</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rmqnamesrv<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>9876</span><span class=p>:</span><span class=m>9876</span><span class=w>
+</span><span class=w>    </span><span class=k>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- ./data/namesrv/logs<span class=p>:</span>/home/rocketmq/logs<span class=w>
+</span><span class=w>    </span><span class=k>command</span><span class=p>:</span><span class=w> </span>sh<span class=w> </span>mqnamesrv<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c>#Service for broker</span><span class=w>
+</span><span class=w>  </span><span class=k>broker</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>apacherocketmq/rocketmq<span class=p>:</span><span class=m>4.6.0</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rmqbroker<span class=w>
+</span><span class=w>    </span><span class=k>links</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- namesrv<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>10909</span><span class=p>:</span><span class=m>10909</span><span class=w>
+</span><span class=w>      </span>- <span class=m>10911</span><span class=p>:</span><span class=m>10911</span><span class=w>
+</span><span class=w>      </span>- <span class=m>10912</span><span class=p>:</span><span class=m>10912</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- NAMESRV_ADDR=namesrv<span class=p>:</span><span class=m>9876</span><span class=w>
+</span><span class=w>      </span>- JAVA_OPT_EXT=-server<span class=w> </span>-Xms128m<span class=w> </span>-Xmx128m<span class=w>
+</span><span class=w>    </span><span class=k>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- ./data/broker/logs<span class=p>:</span>/home/rocketmq/logs<span class=w>
+</span><span class=w>      </span>- ./data/broker/store<span class=p>:</span>/home/rocketmq/store<span class=w>
+</span><span class=w>      </span>- ./data/broker/conf/broker.conf<span class=p>:</span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>    </span><span class=k>command</span><span class=p>:</span><span class=w> </span>sh<span class=w> </span>mqbroker<span class=w> </span>-c<span class=w> </span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=c>#Service for another broker -- broker1</span><span class=w>
+</span><span class=w>  </span><span class=k>broker1</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>apacherocketmq/rocketmq<span class=p>:</span><span class=m>4.6.0</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rmqbroker-b<span class=w>
+</span><span class=w>    </span><span class=k>links</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- namesrv<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>11909</span><span class=p>:</span><span class=m>11909</span><span class=w>
+</span><span class=w>      </span>- <span class=m>11911</span><span class=p>:</span><span class=m>11911</span><span class=w>
+</span><span class=w>      </span>- <span class=m>11912</span><span class=p>:</span><span class=m>11912</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- NAMESRV_ADDR=namesrv<span class=p>:</span><span class=m>9876</span><span class=w>
+</span><span class=w>      </span>- JAVA_OPT_EXT=-server<span class=w> </span>-Xms128m<span class=w> </span>-Xmx128m<span class=w>
+</span><span class=w>    </span><span class=k>volumes</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- ./data1/broker/logs<span class=p>:</span>/home/rocketmq/logs<span class=w>
+</span><span class=w>      </span>- ./data1/broker/store<span class=p>:</span>/home/rocketmq/store<span class=w>
+</span><span class=w>      </span>- ./data1/broker/conf/broker.conf<span class=p>:</span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>    </span><span class=k>command</span><span class=p>:</span><span class=w> </span>sh<span class=w> </span>mqbroker<span class=w> </span>-c<span class=w> </span>/opt/rocketmq<span class=m>-4.6.0</span>/conf/broker.conf<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>rocketmq-console-ng</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>styletang/rocketmq-console-ng<span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>rocketmq-console-ng<span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=m>8087</span><span class=p>:</span><span class=m>8080</span><span class=w>
+</span><span class=w>    </span><span class=k>depends_on</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- namesrv<span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- JAVA_OPTS=<span class=w> </span>-Dlogging.level.root=info<span class=w>   </span>-Drocketmq.namesrv.addr=namesrv<span class=p>:</span><span class=m>9876</span><span class=w> 
+</span><span class=w>      </span>- Dcom.rocketmq.sendMessageWithVIPChannel=<span class=kc>false</span><span class=w>
+</span></code></pre></td></tr></table></div></div><h1 id=使用>使用</h1><h2 id=rocketmq-client-go>rocketmq-client-go</h2><p>官方已经出go原生的客户端<a href=https://github.com/apache/rocketmq-client-go/tree/native>rocketmq-client-go</a></p><p>获取库: <code>go get github.com/apache/rocketmq-client-go/v2</code></p><p>使用库自带的examples进行测试</p><h3 id=producer>producer</h3><p>向<code>topic: test</code>中发送消息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>p</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>rocketmq</span><span class=p>.</span><span class=nf>NewProducer</span><span class=p>(</span>
+    <span class=nx>producer</span><span class=p>.</span><span class=nf>WithNameServer</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;10.0.0.211:9876&#34;</span><span class=p>}),</span>
+    <span class=nx>producer</span><span class=p>.</span><span class=nf>WithRetry</span><span class=p>(</span><span class=mi>2</span><span class=p>),</span>
+  <span class=p>)</span>
+  <span class=nx>err</span> <span class=o>:=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Start</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;start producer error: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+    <span class=nx>os</span><span class=p>.</span><span class=nf>Exit</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=nx>topic</span> <span class=o>:=</span> <span class=s>&#34;test&#34;</span>
+
+  <span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=p>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span> <span class=p>{</span>
+    <span class=nx>msg</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>primitive</span><span class=p>.</span><span class=nx>Message</span><span class=p>{</span>
+      <span class=nx>Topic</span><span class=p>:</span> <span class=nx>topic</span><span class=p>,</span>
+      <span class=nx>Body</span><span class=p>:</span>  <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=s>&#34;Hello RocketMQ Go Client! &#34;</span> <span class=o>+</span> <span class=nx>strconv</span><span class=p>.</span><span class=nf>Itoa</span><span class=p>(</span><span class=nx>i</span><span class=p>)),</span>
+    <span class=p>}</span>
+    <span class=nx>res</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>SendSync</span><span class=p>(</span><span class=nx>context</span><span class=p>.</span><span class=nf>Background</span><span class=p>(),</span> <span class=nx>msg</span><span class=p>)</span>
+
+    <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+      <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;send message error: %s\n&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+      <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;send message success: result=%s\n&#34;</span><span class=p>,</span> <span class=nx>res</span><span class=p>.</span><span class=nf>String</span><span class=p>())</span>
+    <span class=p>}</span>
+  <span class=p>}</span>
+  <span class=nx>err</span> <span class=p>=</span> <span class=nx>p</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;shutdown producer error: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=consumer>consumer</h3><p>消费组<code>testGroup</code>订阅<code>topic: test</code>的消息进行消费</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+  <span class=nx>c</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>rocketmq</span><span class=p>.</span><span class=nf>NewPushConsumer</span><span class=p>(</span>
+    <span class=nx>consumer</span><span class=p>.</span><span class=nf>WithGroupName</span><span class=p>(</span><span class=s>&#34;testGroup&#34;</span><span class=p>),</span>
+    <span class=nx>consumer</span><span class=p>.</span><span class=nf>WithNameServer</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;10.0.0.211:9876&#34;</span><span class=p>}),</span>
+  <span class=p>)</span>
+  <span class=nx>err</span> <span class=o>:=</span> <span class=nx>c</span><span class=p>.</span><span class=nf>Subscribe</span><span class=p>(</span><span class=s>&#34;test&#34;</span><span class=p>,</span> <span class=nx>consumer</span><span class=p>.</span><span class=nx>MessageSelector</span><span class=p>{},</span> <span class=kd>func</span><span class=p>(</span><span class=nx>ctx</span> <span class=nx>context</span><span class=p>.</span><span class=nx>Context</span><span class=p>,</span>
+    <span class=nx>msgs</span> <span class=o>...*</span><span class=nx>primitive</span><span class=p>.</span><span class=nx>MessageExt</span><span class=p>)</span> <span class=p>(</span><span class=nx>consumer</span><span class=p>.</span><span class=nx>ConsumeResult</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+    <span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>msgs</span> <span class=p>{</span>
+      <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;subscribe callback: %v \n&#34;</span><span class=p>,</span> <span class=nx>msgs</span><span class=p>[</span><span class=nx>i</span><span class=p>])</span>
+    <span class=p>}</span>
+
+    <span class=k>return</span> <span class=nx>consumer</span><span class=p>.</span><span class=nx>ConsumeSuccess</span><span class=p>,</span> <span class=kc>nil</span>
+  <span class=p>})</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+  <span class=p>}</span>
+  <span class=c1>// Note: start after subscribe
+</span><span class=c1></span>  <span class=nx>err</span> <span class=p>=</span> <span class=nx>c</span><span class=p>.</span><span class=nf>Start</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+    <span class=nx>os</span><span class=p>.</span><span class=nf>Exit</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Hour</span><span class=p>)</span>
+  <span class=nx>err</span> <span class=p>=</span> <span class=nx>c</span><span class=p>.</span><span class=nf>Shutdown</span><span class=p>()</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;shutdown Consumer error: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+  <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>Dashboard中查看监控，两个broker都在正常工作，符合预期，搭建完成</p><p><img src=/img/post/2020-03-05-rocketmq-docker-compose/two-cluster.png alt></p><h1 id=ref>Ref</h1><p><a href=http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/>[1] 十分钟入门RocketMQ</a></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>Minzhang Cong</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-03-06
+<a href=https://github.com/9ft/log/commit/13f0c822f025f505168615e6f1a7679786247055 title="add rocketmq-docker-compose">(13f0c82)</a></span></p></div><footer class=post-footer><nav class=post-nav><a class=next href=/post/profiling/><span class="next-text nav-default">系统和应用性能分析工具</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname==='localhost')return;var dsq=document.createElement('script');dsq.type='text/javascript';dsq.async=true;var disqus_shortname='mindytech';dsq.src='//'+disqus_shortname+'.disqus.com/embed.js';(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=http://mindy.tk/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2017 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>Minzhang Cong</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script type=text/javascript src=/dist/even.26188efa.min.js></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-46567212-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
