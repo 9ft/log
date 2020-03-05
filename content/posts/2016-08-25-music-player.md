@@ -7,11 +7,11 @@ date: 2016-08-25T16:23:21+0800
 
 最开始接触音乐播放器是初中, 电脑是 XP 系统, Windows Media Player 9 应该是最先接触的播放器. 刚打开新电脑, 用它播放自带的两首音乐Symphony No. 9 (Scherzo) 和 Highway Blues 至今还记忆犹新, 尤其 Jazz 的低音.
 
-![Windows Media Player 9](/img/post/2016-08-25-music-player/WinMp9.png "Windows Media Player 9")
+![Windows Media Player 9](/img/posts/2016-08-25-music-player/WinMp9.png "Windows Media Player 9")
 
 接下来接触了 Winamp, 界面全黑的给人一种神秘感, 换句话说就是不怎么会用, 不喜欢它的默认皮肤, 不过可以装音效插件, 用起来还是蛮爽的. 同期比较火的还有千千静听, 千千静听自带歌词显示, 就冲着功能当时很无敌了, 而且兼容 Winamp 插件, 界面小清新, 网吧装千千静听都是标配.
 
-![Winamp](/img/post/2016-08-25-music-player/winamp-5.jpg "Winamp")
+![Winamp](/img/posts/2016-08-25-music-player/winamp-5.jpg "Winamp")
 
 随着积攒的音乐文件越来越多, Winamp 和千千静听单薄的身躯已经应付不了管理大量音乐的任务. 回头又投入了 WMP 的怀抱. WMP 管理音乐非常棒, 点艺术家就能进入艺术家界面, 点专辑就能进入专辑界面, 对于有大量音乐的用户来说这功能简直太棒. WMP 不但管理音乐库方便, 有很多好用的功能, CD 转 MP3, 向 MP3 播放器拷音乐自动转码, 光盘烧录. 中间有个插曲, 那时我有个 128MB 的 MP3 播放器好像放下了 100 首左右的歌曲, 在我班级引起了一阵轰动, 归功于 WMP 的自动转码功能, 把音乐转换成了 64Kbps, 音质降低, 文件减少了. 不久之后, WMP 更新了版本 10, 以前的功能都在, 界面更好看, 喜欢的不行.
 
@@ -25,7 +25,7 @@ date: 2016-08-25T16:23:21+0800
 
 说起音乐管理不得不说 Last.fm, 这个网站也是我心中 Web2.0 的代表产物. Last.fm Scrobbler 可以记录自己听过的每一首音乐. 可以每过一段时间看一看近期自己听音乐的情况. 最重要的是可以记录, 我总是坚信记录的意义不在于当下, 记录下来的个人数据可以在未来尽情发挥. 但最近一年自己迷上了网易云音乐, 手机 / PC / MAC 客户端统统没办法记录, 网易没跟 Spotify 学好啊. 以前换播放器的成本很低, 因为自己的数据都在 Last.fm 上, 现在不一样了, 所有的数据由网易掌握而且没办法轻易导出. 没办法也只能叹息一下, 趋势就是这样, 就像记账,笔记,读书应用一样, 他们拥有了用户数据而且不轻易导出, 增加了用户更换软件的成本, 变相的留住了客户. 如果再没有合适的 Scrobbler 软件, 记录的歌曲可能就定格到这里了.
 
-![我的 Last.fm](/img/post/2016-08-25-music-player/2016-08-25-my-last.fm.png "我的 Last.fm")
+![我的 Last.fm](/img/posts/2016-08-25-music-player/2016-08-25-my-last.fm.png "我的 Last.fm")
 
 # 现在
 

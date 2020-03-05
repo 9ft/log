@@ -11,7 +11,7 @@ date: 2016-08-23T13:47:24+0800
 ZSH_THEME="agnoster"
 ```
 
-![在 Mac 自带终端使用 oh my zsh 的 agnoster 主题](/img/post/2016-08-23-mac-terminal/mac-terminal-with-theme.png "在 Mac 自带终端使用 oh my zsh 的 agnoster 主题")
+![在 Mac 自带终端使用 oh my zsh 的 agnoster 主题](/img/posts/2016-08-23-mac-terminal/mac-terminal-with-theme.png "在 Mac 自带终端使用 oh my zsh 的 agnoster 主题")
 
 跟以前在 Ubuntu 中的感觉不一样, 配色不对, 而且箭头尖的颜色也不对.
 
@@ -21,6 +21,6 @@ ZSH_THEME="agnoster"
 
 以前没想过要换终端程序, 因为觉得 Mac 自带的终端已经够好了. 下载 `iTerm 2` 后, 自己的见识还是短了点, `iTerm 2` 确实更好看...
 
-![在 iTerm2 使用 oh my zsh 的 agnoster 主题](/img/post/2016-08-23-mac-terminal/iterm2-with-theme.png "在 iTerm2 使用 oh my zsh 的 agnoster 主题")
+![在 iTerm2 使用 oh my zsh 的 agnoster 主题](/img/posts/2016-08-23-mac-terminal/iterm2-with-theme.png "在 iTerm2 使用 oh my zsh 的 agnoster 主题")
 
 这下一切正常. 而且在 `iTerm 2` 的外壳下命令行更炫酷了!

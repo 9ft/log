@@ -19,7 +19,7 @@ date: 2020-03-05T08:00:00+0800
 
 执行后生成的docker-compose.yml连同配置文件放在`stages/4.6.0/docker-compose`中，可以将此文件夹拷贝出来或者直接在此文件夹运行。
 
-![](/img/post/2020-03-05-rocketmq-docker-compose/rmq-deploy.png)
+![](/img/posts/2020-03-05-rocketmq-docker-compose/rmq-deploy.png)
 
 生成的docker-compose包括3个服务，对应上图可以理解RocketMQ的部署结构:
 - 1个无状态的`namesrv`, Name Server是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。
@@ -56,7 +56,7 @@ rocketmq-console-ng:
 
 启动后打开`ip:8087`进入图形界面
 
-![](/img/post/2020-03-05-rocketmq-docker-compose/console-cluster-ip-invalid.png)
+![](/img/posts/2020-03-05-rocketmq-docker-compose/console-cluster-ip-invalid.png)
 
 ## 4. 配置broker
 
@@ -74,7 +74,7 @@ rocketmq-console-ng:
 
 `listenPort=11911`
 
-![](/img/post/2020-03-05-rocketmq-docker-compose/console-cluster-ip-valid.png)
+![](/img/posts/2020-03-05-rocketmq-docker-compose/console-cluster-ip-valid.png)
 
 重新运行后，两个broker使用同一个ip监听不同端口，看起来没问题
 
@@ -257,7 +257,7 @@ func main() {
 
 Dashboard中查看监控，两个broker都在正常工作，符合预期，搭建完成
 
-![](/img/post/2020-03-05-rocketmq-docker-compose/two-cluster.png)
+![](/img/posts/2020-03-05-rocketmq-docker-compose/two-cluster.png)
 
 # Ref
 [[1] 十分钟入门RocketMQ](http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/)

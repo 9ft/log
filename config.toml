@@ -1,204 +1,235 @@
-baseURL = "http://mindy.tk/"
-languageCode = "en"
-defaultContentLanguage = "en"  # en / zh-cn / ...
-title = "log"
-preserveTaxonomyNames = true
+baseURL = "/"
+defaultContentLanguage = "zh-cn"
+
+theme = "LoveIt"
+
 enableRobotsTXT = true
-enableEmoji = true
-theme = "even"
 enableGitInfo = true
+enableEmoji = true
 
-# Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
-pygmentsOptions = "linenos=table"
-pygmentsCodefences = true
-pygmentsUseClasses = true
-pygmentsCodefencesGuessSyntax = true
+summaryLength = 150
 
-hasCJKLanguage = true     # has chinese/japanese/korean ? # 自动检测是否包含 中文\日文\韩文
-paginate = 5                                              # 首页每页显示的文章数
-disqusShortname = "mindytech"
-googleAnalytics = "UA-46567212-1"
-copyright = ""            # default: author.name ↓        # 默认为下面配置的author.name ↓
+[languages]
+  [languages.zh-CN]
+    weight = 1
+    languageCode = "zh-cn"
+    title = "未命名"
+    languageName = "简体中文"
+    hasCJKLanguage = true
+    paginate = 12
+    googleAnalytics = "UA-46567212-1"
+    dateFormatToUse = "2006-01-02"
+
+    [languages.zh-CN.menu]
+      [[languages.zh-CN.menu.main]]
+        identifier = "home"
+        name = "主页"
+        url = "/"
+        weight = 1
+      [[languages.zh-CN.menu.main]]
+        identifier = "post"
+        name = "技术"
+        url = "/posts/"
+        weight = 2
+      [[languages.zh-CN.menu.main]]
+        identifier = "life"
+        name = "生活"
+        url = "/life/"
+        weight = 3
+    [languages.zh-CN.params]
+      description = ""
+      keywords = ["tech","code"]
+      # 网站默认主题 ("light", "dark", "auto")
+      defaultTheme = "auto"
+      # 主页信息设置
+      [languages.zh-CN.params.home]
+        # 主页个人信息
+        [languages.zh-CN.params.home.profile]
+          enable = true
+          avatarURL = "/img/pic/avatar.jpg"
+          subtitle = "成文的技术笔记会搬到这上面来～～编辑中..."
+          typeit = true
+          # 是否显示社交账号
+          social = false
+        # 主页文章列表
+        [languages.zh-CN.params.home.posts]
+          enable = true
+          # 主页每页显示文章数量
+          paginate = 6
+          # 当你没有在文章前面设置 "hiddenFromHomePage" 时的默认行为
+          defaultHiddenFromHomePage = false
+      # 主页的社交信息设置
+      [languages.zh-CN.params.social]
+        GitHub = "xxxx"
+      [languages.zh-CN.params.share]
+        enable = false
+      # 评论系统设置
+      [languages.zh-CN.params.comment]
+        enable = true
+        [languages.zh-CN.params.comment.disqus]
+          shortname = "mindytech"
+
+[params]
+  # LoveIt theme version
+  # LoveIt 主题版本
+  version = "0.1.X"
+  gitRepo = "https://github.com/9ft/log"
+
+  toc = true
+  autoCollapseToc = false
+
+  [params.header]
+    desktopMode = "auto"
+    mobileMode = "auto"
+
+  [params.footer]
+    since = 2017
+
+  [params.page]
+    lightgallery = false
+    linkToMarkdown = false
+  # mathematical formulas (KaTeX)
+  # 数学公式 (KaTeX https://katex.org/)
+  [params.math]
+    enable = true
+    # default block delimiter is $$ ... $$ and \\[ ... \\]
+    # 默认块定界符是 $$ ... $$ 和 \\[ ... \\]
+    blockLeftDelimiter = ""
+    blockRightDelimiter = ""
+    # default inline delimiter is $ ... $ and \\( ... \\)
+    # 默认内联定界符是 $ ... $ 和 \\( ... \\)
+    inlineLeftDelimiter = ""
+    inlineRightDelimiter = ""
+    # KaTeX extension copy_tex
+    # KaTeX 插件 copy_tex
+    copyTex = true
+    # KaTeX extension mhchem
+    # KaTeX 插件 mhchem
+    mhchem = true
+  # site verification code for Google/Bing/Yandex/Pinterest/Baidu
+  # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu
+  [params.verification]
+    google = ""
+    bing = ""
+    yandex = ""
+    pinterest = ""
+    baidu = ""
+  # Publisher Info just for SEO
+  # 出版者信息，仅用于 SEO
+  [params.publisher]
+    name = "xxxx"
+    [params.publisher.logo]
+      url = "logo.png"
+      width = 127
+      height = 40
+  # Website Log Info just for SEO
+  # 网站 Logo 信息，仅用于 SEO
+  [params.logo]
+    url = "logo.png"
+    width = 127
+    height = 40
+  # Website Image Info just for SEO
+  #  网站图标信息，仅用于 SEO
+  [params.image]
+    url = "cover.png"
+    width = 800
+    height = 600
+  # CSS and JS Files CDN
+  # CSS 和 JS 文件的 CDN 设置
+  [params.cdn]
+    # fontawesome-free@5.12.1 https://fontawesome.com/
+    fontawesomeFreeCSS = ''
+    # animate.css@3.7.2 https://github.com/daneden/animate.css
+    animateCSS = ''
+    # smooth-scroll@16.1.2 https://github.com/cferdinandi/smooth-scroll
+    smoothScrollJS = ''
+    # sharer@0.4.0 https://github.com/ellisonleao/sharer.js
+    sharerJS = ''
+    # lazysizes@5.2.0 https://github.com/aFarkas/lazysizes
+    lazysizesJS = ''
+    # lightgallery@1.1.3 lg-thumbnail@1.1.0 lg-zoom@1.1.0 https://github.com/sachinchoolur/lightgallery.js
+    lightgalleryCSS = ''
+    lightgalleryJS = ''
+    lightgalleryThumbnailJS = ''
+    lightgalleryZoomJS = ''
+    # typeit@6.5.1 https://github.com/alexmacarthur/typeit
+    typeitJS = ''
+    # katex@0.11.1 https://github.com/KaTeX/KaTeX
+    katexCSS = ''
+    katexJS = ''
+    katexAutoRenderJS = ''
+    katexCopyTexCSS = ''
+    katexCopyTexJS = ''
+    katexMhchemJS = ''
+    # mermaid@8.4.8 https://github.com/knsv/mermaid
+    mermaidJS = ''
+    # aplayer@1.10.1 https://github.com/MoePlayer/APlayer
+    aplayerCSS = ''
+    aplayerJS = ''
+    # meting@2.0.1 https://github.com/metowolf/MetingJS
+    metingJS = ''
+    # echarts@4.6.0 https://echarts.apache.org/
+    echartsJS = ''
+    echartsMacaronsJS = ''
+    # gitalk@1.6.0 https://github.com/gitalk/gitalk
+    gitalkCSS = ''
+    gitalkJS = ''
+    # valine@1.3.10 https://valine.js.org/
+    valineJS = ''
+
+# Markup related configuration in Hugo
+# Hugo 解析文档的配置
+[markup]
+  # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+  # 代码高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    style = "monokai"
+    tabWidth = 4
+  # Goldmark is from Hugo 0.60 the default library used for Markdown
+  # Goldmark 是 Hugo 0.60 以来的默认 Markdown 解析库
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      # whether to use HTML tags directly in the document
+      # 是否在文档中直接使用 HTML 标签
+      unsafe = true
+
+  [markup.tableOfContents]
+    startLevel = 1
 
 [author]
   name = "Minzhang Cong"
+#  link = ""
 
-[sitemap]                 # essential                     # 必需
+[sitemap]
   changefreq = "weekly"
-  priority = 0.5
   filename = "sitemap.xml"
+  priority = 0.5
 
-[[menu.main]]             # config your menu              # 配置目录
-  name = "Home"
-  weight = 10
-  identifier = "home"
-  url = "/"
-[[menu.main]]
-  name = "Archives"
-  weight = 20
-  identifier = "archives"
-  url = "/post/"
-[[menu.main]]
-  name = "Tags"
-  weight = 30
-  identifier = "tags"
-  url = "/tags/"
-[[menu.main]]
-  name = "Categories"
-  weight = 40
-  identifier = "categories"
-  url = "/categories/"
+# Permalinks Info (https://gohugo.io/content-management/urls/#permalinks)
+[Permalinks]
+  # posts = ":year/:month/:filename"
+  # posts = ":filename"
+  posts = ":slug"
 
-[params]
-  version = "4.x"           # Used to give a friendly message when you have an incompatible update
-  debug = false             # If true, load `eruda.min.js`. See https://github.com/liriliri/eruda
-
-  since = "2017"            # Site creation time          # 站点建立时间
-  gitRepo = "https://github.com/9ft/log"
-
-  # site info (optional)                                  # 站点信息（可选，不需要的可以直接注释掉）
-  logoTitle = "log"
-  keywords = ["Tech", "Code","Life"]
-  description = "just a blog"
-
-  # paginate of archives, tags and categories             # 归档、标签、分类每页显示的文章数目，建议修改为一个较大的值
-  archivePaginate = 10
-
-  # show 'xx Posts In Total' in archive page ?            # 是否在归档页显示文章的总数
-  showArchiveCount = false
-
-  # The date format to use; for a list of valid formats, see https://gohugo.io/functions/format/
-  dateFormatToUse = "2006-01-02"
-
-  # show word count and read time ?                       # 是否显示字数统计与阅读时间
-  moreMeta = true
-
-  # Syntax highlighting by highlight.js
-  highlightInClient = false
-
-  # 一些全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能，在 archetypes/default.md 查看更多信息。
-  # Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
-  toc = true                                                                            # 是否开启目录
-  autoCollapseToc = false   # Auto expand and collapse toc                              # 目录自动展开/折叠
-  fancybox = false
-
-  # mathjax
-  mathjax = false           # see https://www.mathjax.org/                              # 是否使用mathjax（数学公式）
-  mathjaxEnableSingleDollar = false                                                     # 是否使用 $...$ 即可進行inline latex渲染
-  mathjaxEnableAutoNumber = false                                                       # 是否使用公式自动编号
-  mathjaxUseLocalFiles = false  # You should install mathjax in `yout-site/static/lib/mathjax`
-
-  postMetaInFooter = true   # contain author, lastMod, markdown link, license           # 包含作者，上次修改时间，markdown链接，许可信息
-  linkToMarkDown = false    # Only effective when hugo will output .md files.           # 链接到markdown原始文件（仅当允许hugo生成markdown文件时有效）
-  contentCopyright = ''     # e.g. '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
-
-  changyanAppid = ""        # Changyan app id             # 畅言
-  changyanAppkey = ""       # Changyan app key
-
-  livereUID = ""            # LiveRe UID                  # 来必力
-
-  baiduPush = false        # baidu push                  # 百度
-  baiduAnalytics = ""      # Baidu Analytics
-  baiduVerification = ""   # Baidu Verification
-  googleVerification = ""  # Google Verification         # 谷歌
-
-  # Link custom CSS and JS assets
-  #   (relative to /static/css and /static/js respectively)
-  customCSS = []
-  customJS = []
-
-  [params.publicCDN]        # load these files from public cdn                          # 启用公共CDN，需自行定义
-    enable = true
-    jquery = '<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>'
-    slideout = '<script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>'
-    fancyboxJS = '<script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>'
-    fancyboxCSS = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">'
-    timeagoJS = '<script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>'
-    timeagoLocalesJS = '<script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>'
-    flowchartDiagramsJS = '<script src="https://cdn.jsdelivr.net/npm/raphael@2.2.7/raphael.min.js" integrity="sha256-67By+NpOtm9ka1R6xpUefeGOY8kWWHHRAKlvaTJ7ONI=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/flowchart.js@1.8.0/release/flowchart.min.js" integrity="sha256-zNGWjubXoY6rb5MnmpBNefO0RgoVYfle9p0tvOQM+6k=" crossorigin="anonymous"></script>'
-    sequenceDiagramsCSS = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.css" integrity="sha384-6QbLKJMz5dS3adWSeINZe74uSydBGFbnzaAYmp+tKyq60S7H2p6V7g1TysM5lAaF" crossorigin="anonymous">'
-    sequenceDiagramsJS = '<script src="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.js" integrity="sha256-4O4pS1SH31ZqrSO2A/2QJTVjTPqVe+jnYgOWUVr7EEc=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/snapsvg@0.5.1/dist/snap.svg-min.js" integrity="sha256-oI+elz+sIm+jpn8F/qEspKoKveTc5uKeFHNNVexe6d8=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/npm/underscore@1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script> <script src="https://cdn.jsdelivr.net/gh/bramp/js-sequence-diagrams@2.0.1/dist/sequence-diagram-min.js" integrity="sha384-8748Vn52gHJYJI0XEuPB2QlPVNUkJlJn9tHqKec6J3q2r9l8fvRxrgn/E5ZHV0sP" crossorigin="anonymous"></script>'
-
-  # Display a message at the beginning of an article to warn the readers that it's content may be outdated.
-  # 在文章开头显示提示信息，提醒读者文章内容可能过时。
-  [params.outdatedInfoWarning]
-    enable = false
-    hint = 30               # Display hint if the last modified time is more than these days ago.    # 如果文章最后更新于这天数之前，显示提醒
-    warn = 180              # Display warning if the last modified time is more than these days ago.    # 如果文章最后更新于这天数之前，显示警告
-
-  [params.gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
-    owner = ""              # Your GitHub ID
-    repo = ""               # The repo to store comments
-    clientId = ""           # Your client ID
-    clientSecret = ""       # Your client secret
-
-  [params.gitalk]           # Gitalk is a comment system based on GitHub issues. see https://github.com/gitalk/gitalk
-    owner = ""              # Your GitHub ID
-    repo = ""               # The repo to store comments
-    clientId = ""           # Your client ID
-    clientSecret = ""       # Your client secret
-
-  [params.flowchartDiagrams]# see https://blog.olowolo.com/example-site/post/js-flowchart-diagrams/
-    enable = false
-    options = ""
-
-  [params.sequenceDiagrams] # see https://blog.olowolo.com/example-site/post/js-sequence-diagrams/
-    enable = false
-    options = ""            # default: "{theme: 'simple'}"
-
-  [params.busuanzi]         # count web traffic by busuanzi                             # 是否使用不蒜子统计站点访问量
-    enable = false
-    siteUV = true
-    sitePV = true
-    pagePV = true
-
-  [params.reward]                                         # 文章打赏
-    enable = false
-    wechat = "/path/to/your/wechat-qr-code.png"           # 微信二维码
-    alipay = "/path/to/your/alipay-qr-code.png"           # 支付宝二维码
-
-  [params.social]                                         # 社交链接
-    # a-email = "mailto:your@email.com"
-    # b-stack-overflow = "http://localhost:1313"
-    # c-twitter = "http://localhost:1313"
-    # d-facebook = "http://localhost:1313"
-    # e-linkedin = "http://localhost:1313"
-    # f-google = "http://localhost:1313"
-    # g-github = "http://localhost:1313"
-    # h-weibo = "http://localhost:1313"
-    # i-zhihu = "http://localhost:1313"
-    # j-douban = "http://localhost:1313"
-    # k-pocket = "http://localhost:1313"
-    # l-tumblr = "http://localhost:1313"
-    # m-instagram = "http://localhost:1313"
-    # n-gitlab = "http://localhost:1313"
-    # o-bilibili = "http://localhost:1313"
-
-# See https://gohugo.io/about/hugo-and-gdpr/
+# Privacy Info (https://gohugo.io/about/hugo-and-gdpr/)
+# 隐私信息设置 (https://gohugo.io/about/hugo-and-gdpr/)
 [privacy]
   [privacy.googleAnalytics]
-    anonymizeIP = true      # 12.214.31.144 -> 12.214.31.0
+    anonymizeIP = true
+
   [privacy.youtube]
     privacyEnhanced = true
 
-# 将下面这段配置取消注释可以使 hugo 生成 .md 文件
-# Uncomment these options to make hugo output .md files.
-#[mediaTypes]
-#  [mediaTypes."text/plain"]
-#    suffixes = ["md"]
-#
-#[outputFormats.MarkDown]
-#  mediaType = "text/plain"
-#  isPlainText = true
-#  isHTML = false
-#
-#[outputs]
-#  home = ["HTML", "RSS"]
-#  page = ["HTML", "MarkDown"]
-#  section = ["HTML", "RSS"]
-#  taxonomy = ["HTML", "RSS"]
-#  taxonomyTerm = ["HTML"]
-
-[markup]
-  [markup.tableOfContents]
-    startLevel = 1

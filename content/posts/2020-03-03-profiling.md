@@ -7,7 +7,7 @@ date: 2019-11-08T08:00:00+0800
 
 ## 系统级别
 
-![Linux架构，如何检查每个部件是否正常工作](/img/post/2020-03-03-profiling/linux_observability_tools.png)
+![Linux架构，如何检查每个部件是否正常工作](/img/posts/2020-03-03-profiling/linux_observability_tools.png)
 
 ### 一些命令
 
@@ -52,7 +52,7 @@ date: 2019-11-08T08:00:00+0800
 
 Linux Perf – 内置的性能分析工具
 
-![](/img/post/2020-03-03-profiling/linux-perf.png)
+![](/img/posts/2020-03-03-profiling/linux-perf.png)
 
 **Linux Perf 架构**
 - `Perf Tools`: 用户态的 Perf Tools 为用户提供了一系列丰富的工具集用于收集、分析性能数据。

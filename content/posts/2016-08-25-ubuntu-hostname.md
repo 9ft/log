@@ -29,4 +29,4 @@ BandwagonHost 上面有一个 VPS 怎么改都不生效, 重启后 hostname 还�
 
 连接 SSH 看起来更炫酷了是么.
 
-![rename hostname](/img/post/2016-08-25-ubuntu-hostname/2016-08-25 15.09.31.png "rename hostname")
+![rename hostname](/img/posts/2016-08-25-ubuntu-hostname/2016-08-25 15.09.31.png "rename hostname")

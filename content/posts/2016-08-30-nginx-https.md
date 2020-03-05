@@ -93,4 +93,4 @@ server {
 
 观看效果 [个人博客](http://canukiss.me).
 
-![canukiss.me via HTTPS](/img/post/2016-08-30-nginx-https/canukiss.me_via_https.png "canukiss.me via HTTPS")
+![canukiss.me via HTTPS](/img/posts/2016-08-30-nginx-https/canukiss.me_via_https.png "canukiss.me via HTTPS")
