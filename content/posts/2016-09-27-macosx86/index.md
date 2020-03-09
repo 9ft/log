@@ -2,11 +2,12 @@
 slug: macosx86
 title: 神州 K640E-i7 黑苹果安装
 date: 2016-09-27T23:33:57+0800
-lastmod: 2019-12-10T13:09:00+0800
+lastmod: 2020-03-09T15:16:00+0800
 ---
-
-> 2019-12-09 替换为 WhateverGreen 驱动核显
-> 2019-10-20 update to catalina
+changelog:
+- 2020-03-09 fix screen glitch
+- 2019-12-09 替换为 WhateverGreen 驱动核显
+- 2019-10-20 update to catalina
 
 # 前期工作
 
@@ -111,7 +112,7 @@ Clover Configurator -> 工具 -> 挂载分区
 
 具体格式可以通过 `diskutil list` 确认，格式化为 GUID 分区 `diskutil eraseDisk HFS+ usb GPT /dev/disk3`
 
-![](/img/posts/2016-09-27-macosx86/2019-04-05.21.36.20.png)
+![](2019-04-05.21.36.20.png)
 
 # 安装系统
 
@@ -128,7 +129,7 @@ Clover Configurator -> 工具 -> 挂载分区
 
 第一次开机运行 MultiBeast, 它可以安装 Clover 引导和一些驱动.
 
-![MultiBeast](/img/posts/2016-09-27-macosx86/2016-09-02.1.30.31.png "MultiBeast")
+![MultiBeast](2016-09-02.1.30.31.png "MultiBeast")
 
 安装 MultiBeast 提供的:
 
@@ -150,14 +151,37 @@ Clover Configurator -> 工具 -> 挂载分区
 
 下载 `SmartTouchPad_v4.6.5.zip`, 打开 `Contents／PlugIns／ApplePS2Keyboard.kext/Contents/Info.plist`, 将 `Swap alt and windows key` 置 为 `false`
 
+
+<key>Swap command and option</key>
+          <false/>
+
 ## 显卡
 
 Intel HD Graphics 4600
 
 > 参照 [WhateverGreen 驱动 Intel 核显](https://zuiyu1818.cn/posts/Hac_Intel_Graphics.html)
 
-### 修复花屏(boot second stage glitch)
-试了所有办法都不奏效，只能修改clover分辨率为`1024*768`
+### 修复开机花屏(boot second stage glitch)
+试了很多办法都不奏效，只能修改clover分辨率为`1024*768`
+
+### 修复开机后应用花屏(app glitch)
+加入补丁
+```xml
+<dict>
+  <key>Comment</key>
+  <string>1536MB - 2048MB for HD4200_4400_4600 Mobile</string>
+  <key>Disabled</key>
+  <false/>
+  <key>Find</key>
+  <data>AQMDAwAAAAIAADABAABgAAAAAGA=</data>
+  <key>InfoPlistPatch</key>
+  <false/>
+  <key>Name</key>
+  <string>AppleIntelFramebufferAzul</string>
+  <key>Replace</key>
+  <data>AQMDAwAAAAIAADABAACQAAAAAIA=</data>
+</dict>
+```
 
 ### TODO:
 
@@ -184,7 +208,7 @@ RehabMan 大神的 [OS-X-ACPI-Battery-Driver](https://github.com/RehabMan/OS-X-A
 
 ### 屏蔽针脚
 
-![BCM94360HMB屏蔽针脚](/img/posts/2016-09-27-macosx86/2019-11-01-BCM94360HMB.jpg "BCM94360HMB屏蔽针脚")
+![BCM94360HMB屏蔽针脚](2019-11-01-BCM94360HMB.jpg "BCM94360HMB屏蔽针脚")
 
 ### 蓝牙驱动
 

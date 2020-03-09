@@ -5,7 +5,7 @@ date: 2016-12-04T14:36:00+0800
 ---
 安装 Office 2016 的时候没有了自定义安装的选项, 默认安装全家桶.
 
-![](/img/posts/2016-12-04-office-install/office_before.jpg "Before")
+![](office_before.jpg "Before")
 
 **解决方法**
 
@@ -36,6 +36,6 @@ date: 2016-12-04T14:36:00+0800
 
 管理员方式运行命令提示符, 运行 `setup.exe /configure configuration.xml`.
 
-![](/img/posts/2016-12-04-office-install/office_after.png "After")
+![](office_after.png "After")
 
 搞定!

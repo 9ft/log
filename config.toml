@@ -221,8 +221,7 @@ summaryLength = 150
 # Permalinks Info (https://gohugo.io/content-management/urls/#permalinks)
 [Permalinks]
   # posts = ":year/:month/:filename"
-  # posts = ":filename"
-  posts = ":slug"
+  # posts = ":sections"
 
 # Privacy Info (https://gohugo.io/about/hugo-and-gdpr/)
 # 隐私信息设置 (https://gohugo.io/about/hugo-and-gdpr/)

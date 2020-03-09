@@ -5,7 +5,7 @@ date: 2017-03-21T12:39:00+0800
 ---
 ## Filco Majestouch MINILA Air
 
-![](/img/posts/2017-03-21-mech-keyboard/IMG20150515143414.jpg "Filco Majestouch MINILA Air")
+![](IMG20150515143414.jpg "Filco Majestouch MINILA Air")
 
 第一架机械键盘。
 
@@ -41,11 +41,11 @@ date: 2017-03-21T12:39:00+0800
 
 用化学品把键盘的商标洗掉了，现在可以叫他无印键盘了。现在超喜欢这架键盘，买了 ¥9.6 包邮键帽搭配一下。
 
-![](/img/posts/2017-03-21-mech-keyboard/IMG_6257.jpg "GTW 87 Pink")
+![](IMG_6257.jpg "GTW 87 Pink")
 
 后来搭配的绿色键帽，做工很精细。
 
-![](/img/posts/2017-03-21-mech-keyboard/IMG_2467.jpg "GTW 87 Green")
+![](IMG_2467.jpg "GTW 87 Green")
 
 
 ##  想要这样一架键盘
