@@ -241,9 +241,7 @@ K3s自带的 ingress-controller 是 traefik，其他选择还有 nginx ingress c
 
 ## Traefik
 
-### [Traefik Dashboard](https://docs.traefik.io/operations/dashboard/)
-
-traefik是有官方dashboard ui的，开启这个炫酷的UI
+traefik是有官方[Traefik Dashboard](https://docs.traefik.io/operations/dashboard/)的，开启这个炫酷的UI
 
 1. 方法1 (命令直接编辑 traefik  的 configmap)
    `kubectl -n kube-system edit configmap traefik` 
