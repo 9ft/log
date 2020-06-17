@@ -1,0 +1,334 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>| 未命名</title><meta name=Description content><meta property="og:title" content><meta property="og:description" content="对k8s十分感兴趣，但学习k8s首先得需要个集群，单个节点没什么意思，学习或测试通常使用多个虚拟机来模拟集群。我刚好有3个树莓派，偶然发现k3s可以安装到树莓派上，k3s特别轻便，安装即用十分适合自己搭建小项目或学习。本文记录一下我搭建k3s集群的步骤，通过搭建集群的方式学习和理解k8s的基本概念和"><meta property="og:type" content="article"><meta property="og:url" content="/posts/2020-06-17-k3s-on-pi/"><meta property="article:modified_time" content="2020-06-17T22:27:25+08:00"><meta property="og:site_name" content="未命名"><meta name=twitter:card content="summary"><meta name=twitter:title content><meta name=twitter:description content="对k8s十分感兴趣，但学习k8s首先得需要个集群，单个节点没什么意思，学习或测试通常使用多个虚拟机来模拟集群。我刚好有3个树莓派，偶然发现k3s可以安装到树莓派上，k3s特别轻便，安装即用十分适合自己搭建小项目或学习。本文记录一下我搭建k3s集群的步骤，通过搭建集群的方式学习和理解k8s的基本概念和"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=canonical href=/posts/2020-06-17-k3s-on-pi/><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=next href=/posts/hello-world/><link rel=stylesheet href=/lib/fontawesome-free/all.min.9a680b90260b5106d79f4075491ab31daafa7429eff686453c40b58357309649.css integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="><link rel=stylesheet href=/lib/animate/animate.min.3c770e90f98eb21b0c042fafb49755af93306fbaf42e449524f94fae9fc83295.css integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU="><link rel=stylesheet href=/css/style.min.314a327b163e6b0d5ce2db67e83d0131cb84acdedde8e77d3cfba921503b70df.css integrity="sha256-MUoyexY+aw1c4ttn6D0BMcuErN7d6Od9PPupIVA7cN8="><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","mainEntityOfPage":{"@type":"WebPage","@id":"\/posts\/2020-06-17-k3s-on-pi\/"},"image":{"@type":"ImageObject","url":"\/cover.png","width":800,"height":600},"genre":"posts","wordcount":2115,"url":"\/posts\/2020-06-17-k3s-on-pi\/","dateModified":"2020-06-17T22:27:25\u002b08:00","publisher":{"@type":"Organization","name":"xxxx","logo":{"@type":"ImageObject","url":"\/logo.png","width":127,"height":40}},"description":""}</script></head><body><script>if(!window.localStorage||!window.localStorage.getItem('theme')){window.isDark=window.matchMedia('(prefers-color-scheme: dark)').matches;}else{window.isDark=(window.localStorage&&window.localStorage.getItem('theme'))==='dark';}
+window.isDark&&document.body.classList.add('dark-theme');</script><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class="header-title animated bounceIn"><a href=/>未命名</a></div><div class=menu><a class=menu-item href=/>主页</a><a class=menu-item href=/posts/>技术</a><a class=menu-item href=/life/>生活</a><a href=javascript:void(0); class=theme-switch title=切换主题>
+<i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a></div></div></header><header class=mobile id=header-mobile><div class=header-wrapper><div class=header-container><div class="header-title animated bounceIn"><a href=/>未命名</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/>主页</a><a class=menu-item href=/posts/>技术</a><a class=menu-item href=/life/>生活</a><a href=javascript:void(0); class=theme-switch title=切换主题>
+<i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a></div></div></header><script>window.desktopHeaderMode="auto";window.mobileHeaderMode="auto";</script><main class=main><div class=container><article class="page single"><h1 class="single-title animated flipInX"></h1><div class=post-meta><div class=post-meta-line></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i><time datetime=0001-01-01>0001-01-01</time>&nbsp;
+<i class="fas fa-pencil-alt fa-fw"></i>约 2115 字&nbsp;
+<i class="far fa-clock fa-fw"></i>预计阅读 5 分钟&nbsp;</div></div><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto></div></div><div class=toc id=toc-static><details><summary><div class=toc-title><span>目录</span>
+<span><i class="details icon fas fa-angle-down"></i></span></div></summary><div class=toc-content id=toc-content-static><nav id=TableOfContents><ul><li><a href=#准备工作>准备工作</a></li><li><a href=#k3s-集群>k3s 集群</a></li><li><a href=#kubernetes-dashboard>kubernetes dashboard</a><ul><li><a href=#安装>安装</a></li><li><a href=#访问>访问</a></li></ul></li><li><a href=#ingress>Ingress</a><ul><li><a href=#traefik>Traefik</a><ul><li><a href=#traefik-dashboardhttpsdocstraefikiooperationsdashboard><a href=https://docs.traefik.io/operations/dashboard/>Traefik Dashboard</a></a></li></ul></li><li><a href=#ingress-配置>Ingress 配置</a></li></ul></li><li><a href=#结论>结论</a></li></ul></nav></div></details></div><div class=content id=content><p>对k8s十分感兴趣，但学习k8s首先得需要个集群，单个节点没什么意思，学习或测试通常使用多个虚拟机来模拟集群。我刚好有3个树莓派，偶然发现k3s可以安装到树莓派上，k3s特别轻便，安装即用十分适合自己搭建小项目或学习。本文记录一下我搭建k3s集群的步骤，通过搭建集群的方式学习和理解k8s的基本概念和使用方法。</p><h1 id=准备工作>准备工作</h1><ol><li>安装操作系统，我使用的是官方提供的 <a href=https://www.raspberrypi.org/downloads/ target=_blank rel="noopener noreffer">Raspberry Pi OS</a></li><li>连接网络，将每台树莓派分配静态IP便于管理</li></ol><h1 id=k3s-集群>k3s 集群</h1><p>K3s 官方定位为轻量级的 Kubernetes。易于安装，内存占用减半，所有功能都打包在一个不到100MB的二进制包里。</p><p>基于这些优点，搭建集群成本大大降低，十分适合部署小服务或者用来学习。我这里使用3个树莓派进行搭建，一个作为master节点，两个作为worker节点。</p><p><em>如本机调试的话推荐移步使用k3d安装基于docker的集群</em></p><p>使用官方安装脚本进行安装</p><ul><li>安装后自动启动k3s服务</li><li>附带<code>kubectl</code>, <code>crictl</code>, <code>ctr</code></li><li><a href=https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/ target=_blank rel="noopener noreffer">kubeconfig</a>
+文件会写入 <code>/etc/rancher/k3s/k3s.yaml</code>，且<code>kubectl</code>会自动使用这个配置</li></ul><p>总之就是安装后开箱即用，十分方便。</p><p><strong>master节点安装</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl -sfL https://get.k3s.io <span class=p>|</span> sh -
+</code></pre></td></tr></table></div></div><p><strong>worker节点安装</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl -sfL https://get.k3s.io <span class=p>|</span> <span class=nv>K3S_URL</span><span class=o>=</span>https://myserver:6443 <span class=nv>K3S_TOKEN</span><span class=o>=</span>mynodetoken sh -
+</code></pre></td></tr></table></div></div><p>其中参数 K3S_URL 为master节点地址， K3S_TOKEN 可以在master节点文件<code>/var/lib/rancher/k3s/server/node-token</code>中查到。</p><p>安装后使用<code>kubectl get nodes</code>查看集群节点验证是否安装成功</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>pi@pi0:~ $ sudo kubectl get nodes
+NAME   STATUS   ROLES    AGE     VERSION
+pi1    Ready    &lt;none&gt;   5d18h   v1.18.3+k3s1
+pi2    Ready    &lt;none&gt;   5d18h   v1.18.3+k3s1
+pi0    Ready    master   5d18h   v1.18.3+k3s1
+</code></pre></td></tr></table></div></div><p>一个k3s集群就搭建完成了。</p><h1 id=kubernetes-dashboard>kubernetes dashboard</h1><p>集群搭建后，尝试在集群运行些应用。</p><p>首先对初学者，一个炫酷的管理界面是必须要的，UI也会让人更形象的了解设计理念，k8s dashboard是特别合适的。</p><p><em>k8s dashboard 的替代品还有octant</em></p><h2 id=安装>安装</h2><p><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml</code></p><p>使用<code>kubectl get pods</code>查看运行情况，-n 指定namespace</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>pi@pi0:~ $ kubectl get pods -n kubernetes-dashboard
+NAME                                         READY   STATUS    RESTARTS   AGE
+dashboard-metrics-scraper-6b4884c9d5-z49k9   1/1     Running   <span class=m>0</span>          56s
+kubernetes-dashboard-7bfbb48676-x6wgz        1/1     Running   <span class=m>0</span>          56s
+</code></pre></td></tr></table></div></div><p>使用<code>kubectl get service</code>查看服务运行状况</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>pi@pi0:~ $ kubectl get service -n kubernetes-dashboard
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class=o>(</span>S<span class=o>)</span>    AGE
+kubernetes-dashboard        ClusterIP   10.43.134.232   &lt;none&gt;        9090/TCP   59s
+dashboard-metrics-scraper   ClusterIP   10.43.90.112    &lt;none&gt;        8000/TCP   59s
+</code></pre></td></tr></table></div></div><h2 id=访问>访问</h2><p>使用代理命令<code>kubectl proxy</code>访问</p><p>因为是通过局域网访问dashboard，需要设置 <code>--accept-hosts</code> 和 <code>--address</code> 参数</p><p><code>kubectl proxy --accept-hosts='^*$' --address='0.0.0.0'</code></p><p>访问链接 <code>http://pi0:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/</code></p><p>在某个版本起，dashboard仅支持HTTPS或localhost访问</p><p><figure><img class=lazyload src=/svg/loading.min.svg data-sizes=auto data-srcset="dashboard-login-disabled.png, dashboard-login-disabled.png 1.5x, dashboard-login-disabled.png 2x" data-src=dashboard-login-disabled.png alt></figure></p><p>我这里提供的方法是绕开HTTPS，官方镜像是有提供HTTP方式访问端口。(注意，暴露到公网相当于暴露了所有控制权)</p><p><strong>暴露http端口</strong></p><p>Dashboard 镜像是对外提供 HTTP 接口服务的 <a href=https://github.com/kubernetes/dashboard/blob/master/aio/Dockerfile target=_blank rel="noopener noreffer"><code>dashboard/aio/Dockerfile</code></a>
+，对service和deploy做如下修改：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-diff data-lang=diff>pi@pi0:~ $ git diff recommended.yaml recommended_http.yaml
+<span class=gh>diff --git a/recommended.yaml b/recommended_http.yaml
+</span><span class=gh>index 8b25017..0284cfe 100644
+</span><span class=gh></span><span class=gd>--- a/recommended.yaml
+</span><span class=gd></span><span class=gi>+++ b/recommended_http.yaml
+</span><span class=gi></span><span class=gu>@@ -38,8 +38,8 @@ metadata:
+</span><span class=gu></span>   namespace: kubernetes-dashboard
+ spec:
+   ports:
+<span class=gd>-    - port: 443
+</span><span class=gd>-      targetPort: 8443
+</span><span class=gd></span><span class=gi>+    - port: 9090
+</span><span class=gi>+      targetPort: 9090
+</span><span class=gi></span>   selector:
+     k8s-app: kubernetes-dashboard
+
+<span class=gu>@@ -190,10 +190,10 @@ spec:
+</span><span class=gu></span>           image: kubernetesui/dashboard:v2.0.1
+           imagePullPolicy: Always
+           ports:
+<span class=gd>-            - containerPort: 8443
+</span><span class=gd></span><span class=gi>+            - containerPort: 9090
+</span><span class=gi></span>               protocol: TCP
+           args:
+<span class=gd>-            - --auto-generate-certificates
+</span><span class=gd></span><span class=gi>+            #- --auto-generate-certificates
+</span><span class=gi></span>             - --namespace=kubernetes-dashboard
+             # Uncomment the following line to manually specify Kubernetes API server Host
+             # If not specified, Dashboard will attempt to auto discover the API server and connect
+<span class=gu>@@ -207,9 +207,9 @@ spec:
+</span><span class=gu></span>               name: tmp-volume
+           livenessProbe:
+             httpGet:
+<span class=gd>-              scheme: HTTPS
+</span><span class=gd></span><span class=gi>+              scheme: HTTP
+</span><span class=gi></span>               path: /
+<span class=gd>-              port: 8443
+</span><span class=gd></span><span class=gi>+              port: 9090
+</span><span class=gi></span>             initialDelaySeconds: 30
+             timeoutSeconds: 30
+           securityContext:
+</code></pre></td></tr></table></div></div><p><strong>加权限</strong></p><p>界面可以免密打开了，但有权限问题</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>namespaces is forbidden:
+	User &#34;system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard&#34; cannot list resource &#34;namespaces&#34; in API group &#34;&#34; at the cluster scope
+
+secrets is forbidden:
+	User &#34;system:serviceaccount:kubernetes-dashboard:kubernetes-dashboard&#34; cannot list resource &#34;secrets&#34; in API group &#34;&#34; in the namespace &#34;default&#34;
+
+...
+</code></pre></td></tr></table></div></div><p>按照提示缺少的权限逐一加上</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-diff data-lang=diff>pi@pi0:~ $ git diff recommended.yaml recommended_http.yaml
+<span class=gh>diff --git a/recommended.yaml b/recommended_http.yaml
+</span><span class=gh>index 8b25017..324c31b 100644
+</span><span class=gh></span><span class=gd>--- a/recommended.yaml
+</span><span class=gd></span><span class=gi>+++ b/recommended_http.yaml
+</span><span class=gi></span><span class=gu>@@ -38,8 +38,8 @@ metadata:
+</span><span class=gu></span>   namespace: kubernetes-dashboard
+ spec:
+   ports:
+<span class=gd>-    - port: 443
+</span><span class=gd>-      targetPort: 8443
+</span><span class=gd></span><span class=gi>+    - port: 9090
+</span><span class=gi>+      targetPort: 9090
+</span><span class=gi></span>   selector:
+     k8s-app: kubernetes-dashboard
+
+<span class=gu>@@ -129,7 +129,28 @@ metadata:
+</span><span class=gu></span> rules:
+   # Allow Metrics Scraper to get metrics from the Metrics server
+   - apiGroups: [&#34;metrics.k8s.io&#34;]
+<span class=gd>-    resources: [&#34;pods&#34;, &#34;nodes&#34;]
+</span><span class=gd></span><span class=gi>+    resources: [&#34;pods&#34;, &#34;nodes&#34;,&#34;namespaces&#34;,&#34;secrets&#34;,&#34;persistentvolumeclaims&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;&#34;]
+</span><span class=gi>+    resources: [&#34;persistentvolumeclaims&#34;,&#34;namespaces&#34;,&#34;persistentvolumes&#34;,&#34;nodes&#34;,&#34;secrets&#34;,&#34;configmaps&#34;,&#34;services&#34;,&#34;replicationcontrollers&#34;,&#34;events&#34;,&#34;pods&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;apps&#34;]
+</span><span class=gi>+    resources: [&#34;statefulsets&#34;,&#34;deployments&#34;,&#34;daemonsets&#34;,&#34;replicasets&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;rbac.authorization.k8s.io&#34;]
+</span><span class=gi>+    resources: [&#34;clusterroles&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;extensions&#34;]
+</span><span class=gi>+    resources: [&#34;ingresses&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;batch&#34;]
+</span><span class=gi>+    resources: [&#34;jobs&#34;,&#34;cronjobs&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;storage.k8s.io&#34;]
+</span><span class=gi>+    resources: [&#34;storageclasses&#34;]
+</span><span class=gi>+    verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+</span><span class=gi>+  - apiGroups: [&#34;apiextensions.k8s.io&#34;]
+</span><span class=gi>+    resources: [&#34;customresourcedefinitions&#34;]
+</span><span class=gi></span>     verbs: [&#34;get&#34;, &#34;list&#34;, &#34;watch&#34;]
+
+ ---
+<span class=gu>@@ -190,10 +211,10 @@ spec:
+</span><span class=gu></span>           image: kubernetesui/dashboard:v2.0.1
+           imagePullPolicy: Always
+           ports:
+<span class=gd>-            - containerPort: 8443
+</span><span class=gd></span><span class=gi>+            - containerPort: 9090
+</span><span class=gi></span>               protocol: TCP
+           args:
+<span class=gd>-            - --auto-generate-certificates
+</span><span class=gd></span><span class=gi>+            #- --auto-generate-certificates
+</span><span class=gi></span>             - --namespace=kubernetes-dashboard
+             # Uncomment the following line to manually specify Kubernetes API server Host
+             # If not specified, Dashboard will attempt to auto discover the API server and connect
+<span class=gu>@@ -207,9 +228,9 @@ spec:
+</span><span class=gu></span>               name: tmp-volume
+           livenessProbe:
+             httpGet:
+<span class=gd>-              scheme: HTTPS
+</span><span class=gd></span><span class=gi>+              scheme: HTTP
+</span><span class=gi></span>               path: /
+<span class=gd>-              port: 8443
+</span><span class=gd></span><span class=gi>+              port: 9090
+</span><span class=gi></span>             initialDelaySeconds: 30
+             timeoutSeconds: 30
+           securityContext:
+</code></pre></td></tr></table></div></div><h1 id=ingress>Ingress</h1><p>上一步通过<code>kubectl proxy</code>验证功能后，我们将使用Ingress对外暴露Service，使用ingress功能前，先了解一下k3s自带的 ingress-controller。</p><p>K3s自带的 ingress-controller 是 traefik，其他选择还有 nginx ingress controller</p><h2 id=traefik>Traefik</h2><h3 id=traefik-dashboardhttpsdocstraefikiooperationsdashboard><a href=https://docs.traefik.io/operations/dashboard/ target=_blank rel="noopener noreffer">Traefik Dashboard</a></h3><p>traefik是有官方dashboard ui的，开启这个炫酷的UI</p><ol><li><p>方法1 (命令直接编辑 traefik 的 configmap)
+<code>kubectl -n kube-system edit configmap traefik</code></p><p>添加</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>[api]
+    dashboard = true
+</code></pre></td></tr></table></div></div></li><li><p>方法2 (命令式对象配置)
+修改<code>/var/lib/rancher/k3s/server/manifests/traefik.yaml</code></p><p>valuesContent 中添加，<code>kubectl apply -f</code> 生效</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>dashboard:
+  enabled: true
+</code></pre></td></tr></table></div></div></li></ol><p>临时使用端口转发验证ui是否开启成功</p><p><code>kubectl --address 0.0.0.0 -n kube-system port-forward deployment/traefik 8080</code></p><p>访问
+<code>http://pi0:8080</code></p><p><figure><img class=lazyload src=/svg/loading.min.svg data-sizes=auto data-srcset="traefik-dashboard.png, traefik-dashboard.png 1.5x, traefik-dashboard.png 2x" data-src=traefik-dashboard.png alt></figure></p><h2 id=ingress-配置>Ingress 配置</h2><p>需要注意的是 ingress-controller 是 traefik，所以不要错使用了 nginx 的配置</p><p><strong>traefik-dashboard-ingress</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=k>metadata</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=k>annotations</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>traefik.ingress.kubernetes.io/rule-type</span><span class=p>:</span><span class=w> </span>PathPrefixStrip<span class=w>
+</span><span class=w>
+</span><span class=w></span>spec<span class=w>
+</span><span class=w>  </span>- <span class=k>http</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=k>paths</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=k>backend</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=k>serviceName</span><span class=p>:</span><span class=w> </span>traefik-dashboard<span class=w>
+</span><span class=w>          </span><span class=k>servicePort</span><span class=p>:</span><span class=w> </span>dashboard-http<span class=w>
+</span><span class=w>        </span><span class=k>path</span><span class=p>:</span><span class=w> </span>/traefik-dashboard<span class=w>
+</span></code></pre></td></tr></table></div></div><p>使用<code>http://pi0/traefik-dashboard</code>访问</p><p><strong>kubernetes-dashboard-ingress</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=k>metadata</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=k>annotations</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>traefik.ingress.kubernetes.io/rule-type</span><span class=p>:</span><span class=w> </span>PathPrefixStrip<span class=w>
+</span><span class=w>
+</span><span class=w></span>spec<span class=w>
+</span><span class=w>  </span>- <span class=k>http</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=k>paths</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=k>backend</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=k>serviceName</span><span class=p>:</span><span class=w> </span>kubernetes-dashboard<span class=w>
+</span><span class=w>          </span><span class=k>servicePort</span><span class=p>:</span><span class=w> </span><span class=m>9090</span><span class=w>
+</span><span class=w>        </span><span class=k>path</span><span class=p>:</span><span class=w> </span>/kubernetes-dashboard<span class=w>
+</span></code></pre></td></tr></table></div></div><p>使用<code>http://pi0/kubernetes-dashboard</code>访问</p><h1 id=结论>结论</h1><p>在了解k8s基本概念后再在实体机上搭建一套环境，部署和调试了周边工具。这一趟下来k8s的基本使用上没问题了，掌握了一个新技术后为自己打开一个新的大门</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>本文于 2020-06-17 更新&nbsp;<a class=git-hash href=https://github.com/9ft/log/commit/bf748f9291a41e08de3ca7b9e85f65ffddfe998b target=_blank title="commit by Mindy Cong(mindycong@gmail.com) bf748f9291a41e08de3ca7b9e85f65ffddfe998b: add k3s on pi">
+<i class="fas fa-hashtag fa-fw"></i>bf748f9</a></span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section></section><section><span><a href=javascript:window.history.back();>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/hello-world/ class=next rel=next title="First Post">First Post<i class="fas fa-angle-right fa-fw"></i></a></div></div><div class=comment><div id=disqus_thread></div><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript></div></article></div></main><footer class=footer><div class=copyright><div class=copyright-line>由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a></div><div class=copyright-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2017 - 2020</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>Minzhang Cong</a></span></div></div></footer></div><a href=# class="dynamic-to-top animated faster" id=dynamic-to-top><span>&nbsp;</span>
+</a><script src=https://mindytech.disqus.com/embed.js></script><script src=/lib/smooth-scroll/smooth-scroll.polyfills.min.54590077ee163035c3dd38dc034e9f6915ecbe680dd832f449afa21672cab116.js integrity="sha256-VFkAd+4WMDXD3TjcA06faRXsvmgN2DL0Sa+iFnLKsRY="></script><script src=/lib/lazysizes/lazysizes.min.876b4c12685e991d88378c1b6dd3638fd2da0c88f3c24da1ada950c1f26604e1.js integrity="sha256-h2tMEmhemR2IN4wbbdNjj9LaDIjzwk2hralQwfJmBOE="></script><script src=/js/theme.min.1482fc67bfa2c3b8cebe476d0037b9321b5b7a8a1525b547b94143948be90e9e.js integrity="sha256-FIL8Z7+iw7jOvkdtADe5MhtbeooVJbVHuUFDlIvpDp4="></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-46567212-1','auto');ga('set','anonymizeIp',true);ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
