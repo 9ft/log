@@ -2,8 +2,9 @@
 slug: supeervisor
 title: Supervisor 基本使用
 date: 2017-05-03T22:00:00+0800
+toc: true
 ---
-# Installation
+## Installation
 
 ```shell
 pip install supervisor
@@ -11,7 +12,7 @@ apt-get install supervisor
 ```
 
 
-# Configuration
+## Configuration
 
 - `echo_supervisord_conf` 显示默认配置.
 - `echo_supervisord_conf > /etc/supervisor/supervisord.conf` 默认配置重定向到文件.
@@ -49,7 +50,7 @@ files = /root/repos/t2w/supervisor.conf
 ln -s /root/repos/t2w/supervisor.conf /etc/supervisor/conf.d/supervisor.t2w.conf
 ```
 
-## WebUI
+### WebUI
 
 Supervisor 配置 `/etc/supervisor/supervisord.conf` 中:
 
@@ -60,7 +61,7 @@ username = user
 password = password
 ```
 
-# 使用
+## 使用
 
 - `supervisorctl reread` 重新读取配置文件
 - `supervisorctl start t2w` 启动 t2w
@@ -68,14 +69,14 @@ password = password
 
 尝试一下杀掉进程后还会起来一个新的.
 
-# 遇到的问题
+## 遇到的问题
 
 ```
 # supervisorctl start myapp
 myapp: ERROR (no such process)
 ```
 
-## 解决
+### 解决
 
 [Supervisor not loading new configuration files](https://serverfault.com/questions/211525/supervisor-not-loading-new-configuration-files)
 

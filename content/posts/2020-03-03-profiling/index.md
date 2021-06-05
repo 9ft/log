@@ -2,14 +2,15 @@
 slug: profiling
 title: 系统和应用性能分析工具
 date: 2019-11-08T08:00:00+0800
+toc: true
 ---
-# Linux 性能分析
+## Linux 性能分析
 
-## 系统级别
+### 系统级别
 
 ![Linux架构，如何检查每个部件是否正常工作](linux_observability_tools.png)
 
-### 一些命令
+#### 一些命令
 
 - `uptime`: 查看cpu负载
 - `top (htop)`: 进程的资源占用状况
@@ -23,7 +24,7 @@ date: 2019-11-08T08:00:00+0800
 
 高级一些的命令 `sar`, `netstat`, `pidstat`, `strace`, `tcpdump`, `blktrace`, `iotop`, `slabtop`, `sysctl`, `/proc`
 
-### 快速查看整体状态
+#### 快速查看整体状态
 
 ```
 1.  uptime             --> load averages
@@ -46,9 +47,9 @@ date: 2019-11-08T08:00:00+0800
 - **What**: CPU instructions, cycles 
 - **How**: changing over time 
 
-## 函数, 指令级别
+### 函数, 指令级别
 
-### Linux Perf
+#### Linux Perf
 
 Linux Perf – 内置的性能分析工具
 
@@ -77,7 +78,7 @@ Linux Perf – 内置的性能分析工具
 
 > top和report需要通过记录的buildid访问本地的符号表，pid和进程的对应关系等信息来生成报告，对于通过软件包安装的程序，通常都会有dubug package(-dbgsym)即带有符号表信息的程序，如果是源码安装的就需要编译时开启debug选项。
 
-### Flame graph
+#### Flame graph
 
 *(perf 也提供了内置的可视化分析工具 perf timechart)*
 
@@ -111,9 +112,9 @@ CPU 火焰图反映了一段时间内用户程序在 CPU 上运行的热点，�
 
 	`./flamegraph.pl out.kern_folded > kernel.svg`
 
-## 应用级别
+### 应用级别
 
-### gprof
+#### gprof
 
 gprof - GNU profiler
 
@@ -124,7 +125,7 @@ $ ./a.out
 $ gprof a.out
 ```
 
-### gperftools
+#### gperftools
 
 gperftools - Google Performance Tools
 
@@ -137,7 +138,7 @@ $ pprof --callgrind ./a.out profile.log > profile.callgrind
 $ kcachegrind profile.callgrind
 ```
 
-### go tool pprof
+#### go tool pprof
 
 go tool pprof - Google Performance Tools (Go)
 
@@ -160,7 +161,7 @@ go tool pprof - Google Performance Tools (Go)
   ```
 
 
-# Ref
+## Ref
 - [[1] Brendan Gregg: Overview](http://www.brendangregg.com/overview.html)
 - [[2] Perf](https://perf.wiki.kernel.org/index.php/Main_Page)
 

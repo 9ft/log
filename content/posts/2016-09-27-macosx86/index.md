@@ -3,17 +3,18 @@ slug: macosx86
 title: 神州 K640E-i7 黑苹果安装
 date: 2016-09-27T23:33:57+0800
 lastmod: 2020-03-09T15:16:00+0800
+toc: true
 ---
 changelog:
 - 2020-03-09 fix screen glitch
 - 2019-12-09 替换为 WhateverGreen 驱动核显
 - 2019-10-20 update to catalina
 
-# 前期工作
+## 前期工作
 
 必知必会.
 
-## Windows 下挂载 Mac 的 EFI 分区
+### Windows 下挂载 Mac 的 EFI 分区
 
 **管理员权限下执行**:
 
@@ -50,9 +51,9 @@ DiskPart successfully assigned the drive letter or mount point.
 
 盘符挂载好，通过自带的资源管理器
 
-## Mac 下挂载 EFI 分区
+### Mac 下挂载 EFI 分区
 
-### 方法1，命令行方式
+#### 方法1，命令行方式
 
 **1. Discover the volume identifier for your EFI boot partition.**
 
@@ -102,11 +103,11 @@ sudo mount -t msdos /dev/disk1s1 /Volumes/efi
 
 That’s it.  Your EFI volume will be mounted.  Modify it at your own risk.
 
-### 方法2，GUI方式
+#### 方法2，GUI方式
 
 Clover Configurator -> 工具 -> 挂载分区
 
-# 制作系统盘
+## 制作系统盘
 
 下载 Mojave 及后续版本时不像以前一样直接在 Mac App Store 下载，这时候需要使用 [`macOS Catalina Patcher`](http://dosdude1.com/catalina/) 来获得完整镜像，下载完成后使用 [`UniBeast`](https://www.tonymacx86.com/resources/unibeast-9-1-0-mojave.418/) 创建 USB 启动盘，注意启动盘格式应为 GUID。
 
@@ -114,18 +115,18 @@ Clover Configurator -> 工具 -> 挂载分区
 
 ![](2019-04-05.21.36.20.png)
 
-# 安装系统
+## 安装系统
 
 使用刚刚的可启动 U 盘 正常安装。
 
-# 安装驱动
+## 安装驱动
 
 第一次开机时的状态:
 
 - 无线网卡已经驱动好了 (目前版本 BCM94360HMB 2.4G、5G 免驱).
 - 笔记本键盘和触摸板不能用, 因为没合适的 PS2 键盘驱动, 找一个 USB 外接键盘以继续.
 
-## 安装 FakeSMC 和 Clover
+### 安装 FakeSMC 和 Clover
 
 第一次开机运行 MultiBeast, 它可以安装 Clover 引导和一些驱动.
 
@@ -141,7 +142,7 @@ Clover Configurator -> 工具 -> 挂载分区
 
 > 目前更流行使用 VirtualSMC 来代替FakeSMC，但我自己试过多次 VirtualSMC 和 Lilu 不能共存。。原因不明
 
-## 键盘和触摸板
+### 键盘和触摸板
 
 键盘还不能使用, 为了方便折腾, 先驱动键盘和触摸板.
 
@@ -155,7 +156,7 @@ Clover Configurator -> 工具 -> 挂载分区
 <key>Swap command and option</key>
           <false/>
 
-## 显卡
+### 显卡
 
 Intel HD Graphics 4600
 
@@ -183,11 +184,11 @@ Intel HD Graphics 4600
 </dict>
 ```
 
-### TODO:
+#### TODO:
 
 - [ ] 亮度调节，[WhateverGreen 官方教程不生效](https://github.com/acidanthera/WhateverGreen/blob/master/Manual/FAQ.IntelHD.cn.md#%E8%B0%83%E8%8A%82%E7%AC%94%E8%AE%B0%E6%9C%AC%E4%BA%AE%E5%BA%A6)
 
-## 声卡
+### 声卡
 
 这台笔记本声卡型号是 VIA VT1802P
 
@@ -195,32 +196,32 @@ Intel HD Graphics 4600
 
 *目前存在问题，开机默认耳机插口，需要手动切换到扬声器，麦克风测试是能用的，但杂音太大了基本不可用*
 
-### TODO:
+#### TODO:
 
 - [ ] AppleALC 仿冒
 - [ ] 开机自动调整音频到扬声器
 
-## 电池
+### 电池
 
 RehabMan 大神的 [OS-X-ACPI-Battery-Driver](https://github.com/RehabMan/OS-X-ACPI-Battery-Driver)
 
-## BCM94360HMB
+### BCM94360HMB
 
-### 屏蔽针脚
+#### 屏蔽针脚
 
 ![BCM94360HMB屏蔽针脚](2019-11-01-BCM94360HMB.jpg "BCM94360HMB屏蔽针脚")
 
-### 蓝牙驱动
+#### 蓝牙驱动
 
 使用 `BrcmBluetoothInjector.kext`
 
-### 显示蓝牙为第三方驱动的解决办法
+#### 显示蓝牙为第三方驱动的解决办法
 
 `FakePCIID_BCM94352Z_as_BCM94360CS2.kext`
 
-# Clover
+## Clover
 
-## Clover 启动菜单
+### Clover 启动菜单
 
 删除 Clover 中无用的启动项.
 
@@ -236,8 +237,8 @@ RehabMan 大神的 [OS-X-ACPI-Battery-Driver](https://github.com/RehabMan/OS-X-A
 </dict>
 ```
 
-# 与 Windows 共存
+## 与 Windows 共存
 
-## 数据盘格式
+### 数据盘格式
 
 因macOS使用iCloud相册必须使用HFS或AFS，只能放弃NTFS，Windows下使用 [HFS+ for Windows  by Paragon Software](https://www.paragon-software.com/us/home/hfs-windows/) 访问数据。Win下使用目前没遇到什么问题。

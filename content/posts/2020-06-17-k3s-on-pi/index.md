@@ -2,15 +2,16 @@
 slug: k8s-on-raspberry
 title: 使用树莓派搭建K8s集群
 date: 2020-06-17T22:39:00+0800
+toc: true
 ---
 对k8s十分感兴趣，但学习k8s首先得需要个集群，单个节点没什么意思，学习或测试通常使用多个虚拟机来模拟集群。我刚好有3个树莓派，偶然发现k3s可以安装到树莓派上，k3s特别轻便，安装即用十分适合自己搭建小项目或学习。本文记录一下我搭建k3s集群的步骤，通过搭建集群的方式学习和理解k8s的基本概念和使用方法。
 
-# 准备工作
+## 准备工作
 
 1. 安装操作系统，我使用的是官方提供的 [Raspberry Pi OS](https://www.raspberrypi.org/downloads/)
 2. 连接网络，将每台树莓派分配静态IP便于管理
 
-# k3s 集群
+## k3s 集群
 K3s 官方定位为轻量级的 Kubernetes。易于安装，内存占用减半，所有功能都打包在一个不到100MB的二进制包里。
 
 基于这些优点，搭建集群成本大大降低，十分适合部署小服务或者用来学习。我这里使用3个树莓派进行搭建，一个作为master节点，两个作为worker节点。
@@ -50,7 +51,7 @@ pi0    Ready    master   5d18h   v1.18.3+k3s1
 
 一个k3s集群就搭建完成了。
 
-# kubernetes dashboard
+## kubernetes dashboard
 
 集群搭建后，尝试在集群运行些应用。
 
@@ -58,7 +59,7 @@ pi0    Ready    master   5d18h   v1.18.3+k3s1
 
 *k8s dashboard 的替代品还有octant*
 
-## 安装
+### 安装
 
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.1/aio/deploy/recommended.yaml`
 
@@ -79,7 +80,7 @@ kubernetes-dashboard        ClusterIP   10.43.134.232   <none>        9090/TCP  
 dashboard-metrics-scraper   ClusterIP   10.43.90.112    <none>        8000/TCP   59s
 ```
 
-## 访问
+### 访问
 
 使用代理命令`kubectl proxy`访问
 
@@ -233,13 +234,13 @@ index 8b25017..324c31b 100644
            securityContext:
 ```
 
-# Ingress
+## Ingress
 
 上一步通过`kubectl proxy`验证功能后，我们将使用Ingress对外暴露Service，使用ingress功能前，先了解一下k3s自带的 ingress-controller。
 
 K3s自带的 ingress-controller 是 traefik，其他选择还有 nginx ingress controller
 
-## Traefik
+### Traefik
 
 traefik是有官方[Traefik Dashboard](https://docs.traefik.io/operations/dashboard/)的，开启这个炫酷的UI
 
@@ -272,7 +273,7 @@ traefik是有官方[Traefik Dashboard](https://docs.traefik.io/operations/dashbo
 
 ![](traefik-dashboard.png)
 
-## Ingress 配置
+### Ingress 配置
 
 需要注意的是 ingress-controller 是 traefik，所以不要错使用了 nginx 的配置
 
@@ -314,6 +315,6 @@ spec
 
 
 
-# 结论
+## 结论
 
 在了解k8s基本概念后再在实体机上搭建一套环境，部署和调试了周边工具。这一趟下来k8s的基本使用上没问题了，掌握了一个新技术后为自己打开一个新的大门

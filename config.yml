@@ -14,7 +14,6 @@ googleAnalytics: UA-46567212-1
 params:
   contentTypeName: posts
   defaultTheme: light
-  toc: true
 
 languages:
   zh-cn:

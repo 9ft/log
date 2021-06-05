@@ -2,12 +2,13 @@
 slug: rockermq-docker
 title: 使用Docker搭建RocketMq
 date: 2020-03-05T08:00:00+0800
+toc: true
 ---
 一直在使用公司提供的RocketMq环境，公司提供的是深度定制的版本。突发奇想自己也搭建一个试试。RocketMQ作为一个分布式架构的系统，docker-compose方式可以清晰的用多容器模拟分布式的状态。因为是单机器并且性能不强的情况下搭建，遇到一些坑，这里记录一下，搭建完成后使用go版本sdk进行生产消费操作
 
-# 安装
+## 安装
 
-## 1. 生成docker-compose.yml
+### 1. 生成docker-compose.yml
 
 使用官方提供的工具([RocketMQ-Docker](https://github.com/apache/rocketmq-docker.git))生成docker-compose.yml
 
@@ -25,7 +26,7 @@ date: 2020-03-05T08:00:00+0800
 - 1个无状态的`namesrv`, Name Server是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。
 - 2个外部挂载配置文件的`broker`, 此配置中两个都为Master无Slave
 
-## 2. 增加可视化界面(可选)
+### 2. 增加可视化界面(可选)
 
 可以将官方提供的[rocketmq-console](https://github.com/apache/rocketmq-externals/tree/master/rocketmq-console)放入docker-compose.yml中
 
@@ -42,7 +43,7 @@ rocketmq-console-ng:
     - Dcom.rocketmq.sendMessageWithVIPChannel=false
 ```
 
-## 3. 运行
+### 3. 运行
 `docker-compose up -d` 启动
 
 官方有提供启动脚本 `play-docker-compose.sh`，我看了一下只是生成一些目录，没有必要使用，运行时会自动生成这些空挂载目录的
@@ -58,9 +59,9 @@ rocketmq-console-ng:
 
 ![](console-cluster-ip-invalid.png)
 
-## 4. 配置broker
+### 4. 配置broker
 
-### 配置IP
+#### 配置IP
 
 此时cluster内可以查看启动的两个broker信息，生产消费时，客户端会连接namesvr查找broker地址，再直连broker，然而目前的broker地址是docker内部地址，需要将此地址手动设置为外部可连接的地址。
 
@@ -68,7 +69,7 @@ rocketmq-console-ng:
 
 `brokerIP1=10.0.0.211`
 
-### 配置监听端口
+#### 配置监听端口
 
 目前是单台机器部署两个broker，都使用同一个IP并且都使用默认端口的话，会造成端口冲突，比如上图所示目前默认状态两个broker都监听了10911端口，还需要将broker监听端口进行配置，与此同时更新docker-compose.yml里暴露的端口。
 
@@ -80,7 +81,7 @@ rocketmq-console-ng:
 
 > broker配置文档: [Broker configuration](https://rocketmq.apache.org/docs/rmq-deployment/#broker-configuration)
 
-## 完整配置
+### 完整配置
 
 broker-a 的配置文件 `data/conf/broker.conf`:
 ```
@@ -173,9 +174,9 @@ services:
       - Dcom.rocketmq.sendMessageWithVIPChannel=false
 ```
 
-# 使用
+## 使用
 
-## rocketmq-client-go
+### rocketmq-client-go
 
 官方已经出go原生的客户端[rocketmq-client-go](https://github.com/apache/rocketmq-client-go/tree/native)
 
@@ -183,7 +184,7 @@ services:
 
 使用库自带的examples进行测试
 
-### producer
+#### producer
 
 向`topic: test`中发送消息
 
@@ -220,7 +221,7 @@ func main() {
 }
 ```
 
-### consumer
+#### consumer
 
 消费组`testGroup`订阅`topic: test`的消息进行消费
 
@@ -259,5 +260,5 @@ Dashboard中查看监控，两个broker都在正常工作，符合预期，搭�
 
 ![](two-cluster.png)
 
-# Ref
+## Ref
 [[1] 十分钟入门RocketMQ](http://jm.taobao.org/2017/01/12/rocketmq-quick-start-in-10-minutes/)

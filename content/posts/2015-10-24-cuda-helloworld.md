@@ -9,11 +9,11 @@ Platform: `SUSE Linux`
 
 CUDA Version: `cuda_7.5.18_linux`
 
-# 安装软件
+## 安装软件
 
 安装驱动和 `Cuda`, 安装的时候发现 `Cuda` 中包含驱动了, 所以只下载 [Cuda][1] 即可, 不需要单独下载驱动.
 
-# 环境变量
+## 环境变量
 
 确保:
 
@@ -22,7 +22,7 @@ CUDA Version: `cuda_7.5.18_linux`
 
 使用 `nvcc` 命令测试是否设置成功.
 
-## 设置和查看环境变量
+### 设置和查看环境变量
 
 ```shell
 export PATH="<PATH DIR>:$PATH"
@@ -39,7 +39,7 @@ echo $PATH
 ```
 
 
-# 运行
+## 运行
 ```shell
 nvcc helloCuda.cu
 # 编译 helloCuda.cu

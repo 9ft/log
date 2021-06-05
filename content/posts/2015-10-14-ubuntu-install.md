@@ -3,14 +3,15 @@ slug: ubuntu-install
 title: Ubuntu 配置
 date: 2015-10-14T08:00:00+0800
 lastmod: 2017-06-01T11:54:40+0800
+toc: true
 ---
 虽然 `Linux` 不太会用, 可是比较喜欢装系统. 本文记录 `Ubuntu` 下自己用的配置和软件包, 方便装系统后快速折腾.
 
-# 虚拟机下使用额外功能
+## 虚拟机下使用额外功能
 
 比如拖拽, 共享文件, 改变窗口大小.
 
-## Win 下 vmware
+### Win 下 vmware
 
 `open-vm-tools`
 
@@ -31,17 +32,17 @@ ii  open-vm-tools-desktop   2:9.4.0-1280544-5ubuntu6.2  amd64   Open VMware Tool
 ii  open-vm-tools-lts-trusty    2:9.4.0-1280544-5ubuntu6.2  all Open VMware Tools for virtual machines hosted on VMware (transitional package)
 ```
 
-## Mac 下 Parallels
+### Mac 下 Parallels
 
 可以自动安装
 
-# 修改时区
+## 修改时区
 
 运行 `sudo dpkg-reconfigure tzdata` 选择时区.
 
-# 语言
+## 语言
 
-## 终端界面改为中文提示
+### 终端界面改为中文提示
 
 在 `/etc/environment` 中加入:
 
@@ -52,7 +53,7 @@ LANGUAGE="zh_CN:zh:en_US:en"
 
 运行 `sudo dpkg-reconfigure locales`, 重启生效.
 
-## 个人目录下文件夹名称改为英文
+### 个人目录下文件夹名称改为英文
 
 中文系统下, 终端中有中文目录会十分蛋疼.
 
@@ -69,7 +70,7 @@ xdg-user-dirs-gtk-update
 LANG=C xdg-user-dirs-update --force
 ```
 
-# 搜狗输入法
+## 搜狗输入法
 
 以前用的 ibus 的谷歌拼音很棒, 不过貌似不怎么维护, 用搜狗!
 

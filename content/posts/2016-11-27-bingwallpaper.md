@@ -2,6 +2,7 @@
 slug: bingwallpaper
 title: 设置 Bing 主页背景为系统桌面
 date: 2016-11-27T13:41:00+0800
+toc: true
 ---
 Windows 平台下有微软现成的软件.
 macOS 下也不能放过 Bing 精选的壁纸.

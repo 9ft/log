@@ -2,6 +2,7 @@
 slug: mech-keyboard
 title: 机械键盘
 date: 2017-03-21T12:39:00+0800
+toc: true
 ---
 ## Filco Majestouch MINILA Air
 

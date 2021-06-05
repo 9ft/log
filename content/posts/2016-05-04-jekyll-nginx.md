@@ -2,12 +2,13 @@
 slug: jekyll-nginx
 title: VPS 上利用 Jekyll Nginx 搭建博客
 date: 2016-05-04T08:00:00+0800
+toc: true
 ---
 
 以前买的虚拟空间虽然很稳定, 但自己能控制的东西不多. 折腾VPS, 把个人博客迁移过去. 换个胃口, 先不折腾 `LEMP` 了, 装个 `Jekyll` 好啦.
 
 
-# 安装 `Ruby`
+## 安装 `Ruby`
 
 Mac 下也推荐使用 RVM, 虽然 macOS 自带了 Ruby, 但这个 Ruby 是为系统所使用的, 安装 gem 需要使用 sudo. 否则没有对目录 /Library/Ruby/Gems/ 的写权限.
 
@@ -43,7 +44,7 @@ rvm install 2.2
 ruby -v
 ```
 
-# 安装 `Jekyll`
+## 安装 `Jekyll`
 参照 [Jekyll Quick-start Instructions][2].
 
 ```shell
@@ -52,7 +53,7 @@ jekyll new my-awesome-site
 cd my-awesome-site
 ```
 
-# 启动服务器
+## 启动服务器
 
 使用浏览器在本地进行预览.
 
@@ -60,13 +61,13 @@ cd my-awesome-site
 jekyll serve
 ```
 
-# 部署 `Jekyll` 生成的网站
+## 部署 `Jekyll` 生成的网站
 
 ```shell
 jekyll build --source ~/my-awesome-site --destination /var/www/awesomeblog
 ```
 
-# 配置 `Nginx`
+## 配置 `Nginx`
 
 复制默认配置文件  
 
@@ -105,17 +106,17 @@ Restart nginx.
 sudo service nginx restart
 ```
 
-# 架设 `HTTP` 协议的 `Git` 服务器
+## 架设 `HTTP` 协议的 `Git` 服务器
 
-## 安装
+### 安装
 
 ```shell
 sudo apt-get install git gitweb fcgiwrap
 ```
 
-## 配置
+### 配置
 
-### 配置 `Nginx` 可运行 `fastcgi`
+#### 配置 `Nginx` 可运行 `fastcgi`
 
 参照 [在 Ubuntu 系统上配置 Nginx Git 服务器][4] 和 [NGINX Configuration for Gitweb and git-http-backend][5] 中的配置.
 
@@ -177,7 +178,7 @@ server {
 }
 ```
 
-### 配置 `gitweb.conf`
+#### 配置 `gitweb.conf`
 
 修改 `/etc/gitweb.conf` 为:
 
@@ -185,7 +186,7 @@ server {
 $projectroot = "/usr/share/nginx/git.mindy.tk"
 ```
 
-### 使用 `htpasswd` 创建用户
+#### 使用 `htpasswd` 创建用户
 
 使用 `htpasswd` 创建用户名及其密码.
 
@@ -193,9 +194,9 @@ $projectroot = "/usr/share/nginx/git.mindy.tk"
 htpasswd /etc/nginx/passwd user1
 ```
 
-# 建立与本地仓库的连接
+## 建立与本地仓库的连接
 
-## 服务器上建立裸仓库
+### 服务器上建立裸仓库
 
 ```shell
 git init --bare test.git
@@ -207,7 +208,7 @@ git init --bare test.git
 chmod a+rw -R test.git
 ```
 
-## 设置`Hook`
+### 设置`Hook`
 
 参照 [How To Deploy Jekyll Blogs with Git][6]  [Deployment methods][7]
 
@@ -234,7 +235,7 @@ exit
 chmod +x post-receive
 ```
 
-# Enjoy
+## Enjoy
 
 [1]:https://rvm.io/rvm/install
 [2]:https://jekyllrb.com/

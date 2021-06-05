@@ -10,7 +10,7 @@ lastmod: 2017-01-17T22:24:51+0800
 - 省去证书的操作, 只要记用户名密码.
 - 搭建时不需要创建 `git` 用户. 使用用户 `www-data`.
 
-# 安装
+## 安装
 ```shell
 sudo apt-get install git gitweb nginx fcgiwrap
 ```
@@ -18,9 +18,9 @@ sudo apt-get install git gitweb nginx fcgiwrap
 - gitweb: Git 自带 GitWeb 的 CGI 脚本
 - fcgiwrap: 为 Nginx 提供 cgi 支持
 
-# 配置
+## 配置
 
-## git-http-backend
+### git-http-backend
 
 最简单的配置:
 
@@ -62,7 +62,7 @@ push 提示权限不足的话, 使用命令设置一下权限:
 chmod a+rw -R repo.git
 ```
 
-## gitweb
+### gitweb
 
 配置 `/etc/gitweb.conf`:
 
@@ -94,7 +94,7 @@ server {
 
 GUI 美化: https://github.com/kogakure/gitweb-theme
 
-## git-http-backend 与 gitweb
+### git-http-backend 与 gitweb
 
 ```nginx
 server {
@@ -145,7 +145,7 @@ server {
 - git.example.com 访问 Gitweb 网页,
 - http://git.example.com/repo.git 进行 git 操作.
 
-# 杂项
+## 杂项
 
 **使用 `htpasswd` 创建用户**
 
