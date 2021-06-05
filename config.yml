@@ -1,0 +1,36 @@
+baseurl: /
+
+DefaultContentLanguage: zh-cn
+languageCode: zh-cn
+
+theme: hello-friend
+
+paginate: 5
+summaryLength: 140
+
+disqusShortname: mindytech
+googleAnalytics: UA-46567212-1
+
+params:
+  contentTypeName: posts
+  defaultTheme: light
+  toc: true
+
+languages:
+  zh-cn:
+    title: 未命名
+    hasCJKLanguage: true
+    readMore: 全文
+    readOtherPosts: 更多
+    newerPosts: 上页
+    olderPosts: 下页
+    lastModDisplay: 更新
+    params:
+      logo:
+        logoText: 未命名
+        logoHomeLink: /
+    menu:
+      main:
+        - identifier: about
+          name: About
+          url: /about
