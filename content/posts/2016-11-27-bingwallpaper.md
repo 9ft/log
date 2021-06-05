@@ -2,106 +2,71 @@
 slug: bingwallpaper
 title: 设置 Bing 主页背景为系统桌面
 date: 2016-11-27T13:41:00+0800
+lastmod: 2021-06-05T20:23:00+0800
 toc: true
 ---
-Windows 平台下有微软现成的软件.
-macOS 下也不能放过 Bing 精选的壁纸.
 
-无意中看到一个[`使用 Shell 实现的代码`][Mac OS X自动下载切换桌面壁纸], 但实际上不能使用.
+每天更换主页背景是 bing.com 一大特色。
 
-基于上面链接的方法, 复习一下 Shell 编程和正则表达式, 自己修改的代码如下:
+macOS 下可以通过简单脚本将图片设置为桌面背景。
 
-```Shell
+**项目仓库 [9ft/BingWallpaper](https://github.com/9ft/BingWallpaper)**
+
+## 编写脚本
+
+1. 读取本地目录，检查今日图片是否获取过
+2. curl 获取网页源码
+3. 正则匹配出背景图
+4. 使用 osascript 设置系统桌面背景
+
+[BingWallpaper.sh](https://github.com/9ft/BingWallpaper/blob/master/BingWallpaper.sh)
+```shell
 #!/bin/sh
 localDir="/Users/$USER/Pictures/BingWallpaper"
 filenameRegex=".*"$(date "+%Y-%m-%d")".*jpg"
-log=$localDir/log.log
+log="$localDir/bin/log.log"
 
-# 判断本地是否存在今日壁纸
+if [ ! -d "$localDir" ]; then
+    mkdir "$localDir"
+fi
+
 findResult=$(find $localDir -regex $filenameRegex)
+
 if [ ! -n "$findResult" ]; then
     baseUrl="cn.bing.com"
-    # 提取壁纸图片URL
-    imgurl=$(expr "$(curl -L $baseUrl | grep hprichbg)" : '.*hprichbg\(.*\)",id.*')
-    # 提取图片名称
-    filename=$(expr "$imgurl" : '.*/\(.*\)')
-    # 本地图片地址
+    html=$(curl -L $baseUrl)
+
+    imgurl=$(expr "$(echo "$html" | grep "&amp;rf")" : '.*href=\"\(\/th\?id=OHR\.[A-Za-z0-9]*\_ZH\-CN[0-9]*\_1920x1080\.jpg\).*')
+    echo img $imgurl
+    filename=$(expr "$imgurl" : '.*OHR\.\(.*\)')
+    echo $filename
     localpath="$localDir/$(date "+%Y-%m-%d")-$filename"
-    # 下载图片至本地
-    curl -o $localpath $baseUrl/az/hprichbg/$imgurl
-    # 调用Finder应用切换桌面壁纸
-    osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"$localpath\""
-    echo "$(date +"%Y-%m-%d %H:%M:%S") Downloaded $filename" >> log
+    curl -o $localpath $baseUrl/$imgurl
+
+    des=$(expr "$(echo "$html" | grep "id=\"sh_cp\" class=\"sc_light\"")" : '.*id=\"sh_cp\".*title=\"\(.*\)\" aria-label=\"主页图片信息\"')
+
+    osascript -e "                              \
+        tell application \"System Events\" to   \
+            tell every desktop to               \
+                set picture to \"$localpath\""
+    osascript -e "display notification \"$des\" with title \"BingWallpaper\""
+    echo "$(date +"%Y-%m-%d %H:%M:%S") Downloaded $filename" >> $log
 else
-    echo "$(date +"%Y-%m-%d %H:%M:%S") Exist" >> log
+    echo "$(date +"%Y-%m-%d %H:%M:%S") Exist" >> $log
     exit 0
 fi
 ```
 
-#### Curl
+## 定时执行
 
-Using **curl** to transfer data.
+使用 crontab 开机启动 (唤醒时不会运行)
 
-**`-L, —location`**
-
-> If  the server reports that the requested page has moved to a different location (indicated with a Location: header and  a  3XX  response code), this option will make curl redo the request on the new place
-
-**`-o, --output <file>`**
-
-> Write output to <file> instead of stdout.
-
-#### Regex
-
-**`expr STRING : REGEXP`**
-
-> Anchored pattern match of regular expression *REGEXP* in *STRING*. [Source](Linux and Unix expr command)
-
-Regex can test on: [regex101.com][Regex101]
-
-**`\(.*\)`**
-
-> The regular expression **'\\(.*\\)'** represents "The actual text (whatever appears in **between the parentheses**, which are escaped with backslashes) which matches the pattern **.\***, which itself represents any number of any character." Matched against the text **text**, this returns the string exactly:
-
-Got `imgurl` = `BlackchurchRock_ZH-CN9991716795_1920x1080.jpg`
-
-#### Crontab
-
-因为学校的网络环境比较复杂, 通常开机后并没有网络连接, 所以没办法设置为开机启动. 现在用的办法是用 Crontab 每小时运行一次脚本, 如果检查到今天的壁纸已经存在, 则放弃.
-
-**crontab** [**-u** **user**] **file**
-
-**crontab** [**-u** **user**] { **-l** | **-r** | **-e** }
-
-[Example of job definition:][What are the runtime permissions of a cron job?]
-
-```shell
-# Example of job definition:
-.---------------- minute (0 - 59)
-|  .------------- hour (0 - 23)
-|  |  .---------- day of month (1 - 31)
-|  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
-|  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-|  |  |  |  |
-*  *  *  *  * user-name  command to be executed
+```
+@reboot sleep 60; sh ~/Pictures/BingWallpaper/bin/BingWallpaper.sh
 ```
 
-**Shell**
+或 使用 crontab 定时运行 (每小时)
 
-```shell
-# -n 判断一个变量是否有值
-if [ ! -n "$var" ]; then
-  echo "$var is empty"
-  exit 0
-else
-  echo "$var is not empty"
-  exit 0
-fi
 ```
-
-
-[Mac OS X自动下载切换桌面壁纸]:http://www.cnblogs.com/feiqihang/p/5076573.html
-[curl网站开发指南]:http://www.ruanyifeng.com/blog/2011/09/curl.html
-[Linux and Unix expr command]:http://www.computerhope.com/unix/uexpr.htm
-[Regex101]:https://regex101.com
-[What are the runtime permissions of a cron job?]:http://unix.stackexchange.com/questions/81805/what-are-the-runtime-permissions-of-a-cron-job
-[How to Display (List) All Jobs in Cron / Crontab]:https://www.liquidweb.com/kb/how-to-display-list-all-jobs-in-cron-crontab/
+* */1 * * * sh ~/Pictures/BingWallpaper/bin/BingWallpaper.sh
+```
