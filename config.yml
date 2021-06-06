@@ -7,6 +7,7 @@ theme: hello-friend
 
 paginate: 5
 summaryLength: 140
+enableGitInfo: true
 
 disqusShortname: mindytech
 googleAnalytics: UA-46567212-1
